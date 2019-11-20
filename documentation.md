@@ -1,18 +1,18 @@
 
-# PROJECT NAME
+# UMD Recipes
 
 ---
 
-Name: 
+Name: Theodore, Youjia, Wilson
 
-Date: 
+Date: 06 December 2019
 
-Project Topic: 
+Project Topic: Recipe sharing and rating website
 
 URL: 
 
 ---
-
+### Midterm Specifications
 
 ### 1. Data Format and Storage
 
@@ -74,3 +74,40 @@ Navigation Filters
 3. ... -> `  ...  `
 4. ... -> `  ...  `
 5. ... -> `  ...  `
+
+### Additional Requirements
+
+### 6. Live Updates
+Sockets
+
+### 7. Viewing the Data
+Handlebars.js pages:
+1.
+2.
+3.
+4.
+5.
+
+Description page `/...`
+
+### 8. API
+
+Post Endpoints
+
+Delete Endpoints
+
+### 9. Modules
+We created the following modules:
+1.
+2.
+
+### 10. NPM Packages
+We used the following new npm packages
+1.
+2.
+
+### 11. User Interface
+
+### 12. Deployment
+
+### 13. README
