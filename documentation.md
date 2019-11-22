@@ -14,7 +14,7 @@ URL:
 ---
 ### Midterm Specifications
 
-# 1. Data Format and Storage
+### 1. Data Format and Storage
 
 Data point fields:
 - `Field 1`:     ...       `Type: ...`
@@ -30,7 +30,7 @@ Schema:
 }
 ```
 
-# 2. Add New Data
+### 2. Add New Data
 
 HTML form route: `/...`
 
@@ -58,15 +58,15 @@ request(options, function (error, response, body) {
 });
 ```
 
-# 3. View Data
+### 3. View Data
 
 GET endpoint route: `/api/...`
 
-# 4. Search Data
+### 4. Search Data
 
 Search Field: ...
 
-# 5. Navigation Pages
+### 5. Navigation Pages
 
 Navigation Filters
 1. name -> `  route  `
@@ -75,39 +75,43 @@ Navigation Filters
 4. ... -> `  ...  `
 5. ... -> `  ...  `
 
-# Additional Requirements
+### Additional Requirements
 
-# 6. Live Updates
+### 6. Live Updates
 Sockets
 
-# 7. Viewing the Data
-Handlebars.js pages:
-1.
-2.
-3.
-4.
-5.
+### 7. Viewing the Data
+  Handlebars.js pages:
+  1.
+  2.
+  3.
+  4.
+  5.
 
-Description page `/...`
+  Description page `/...`
 
-# 8. API
+### 8. API
 
-Post Endpoints
+  Post Endpoints
 
-Delete Endpoints
+  Delete Endpoints
 
-# 9. Modules
-We created the following modules:
-1. recipe.js
-2. review.js
+  Additional Endpoints
+
+### 9. Modules
+  We created the following modules:
+  1. recipe.js
+  2. review.js
 
 ### 10. NPM Packages
-We used the following new npm packages
-1.
-2.
+  We used the following new npm packages
+  1.
+  2.
 
-# 11. User Interface
+### 11. User Interface
 
-# 12. Deployment
+### 12. Deployment
+  The website is hosted on: 
 
-# 13. README
+### 13. README
+  See the README for more information
