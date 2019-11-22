@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<article>
+<h2>{{header}}</h2>
+<p>{{content}}</p>
+<body onload="onStart()">
+<form> 
+Search by Apartment or Community: <input type="text" placeholder="Search for Community" id = "community" name="search" size="20" onkeyup="apartmentchecker()" autofocus>
+</form>
+</article>
+{{#each data}}
+<article class="listing">
+    <i>Added {{time}}</i>
+    <h3 class="community">{{this.community}}</h3> 
+    <div class = "entirelisting">
+        {{this.beds}} Bedrooms <br>
+        {{this.baths}} Bathrooms <br>
+        ${{this.rent}} {{this.div}} Per Month <br>
+        Length of Lease: {{this.length}} <br> 
+        <p class="description">{{this.description}}</p>
+        Features <br>
+        <ul>
+            {{#each this.features}}
+            <li>{{this}}</li>
+            {{else}}
+            The lessor has not shared any features with us.
+            {{/each}}
+        </ul>
+        Contact: {{this.name}} <br>
+        Phone: {{this.phone}} <br>
+        <br>
+        {{!Here, make the data from the listing look nice in a presentatble format}}
+    </div>
+</article>
+
+{{else}}
+
+<article class="none">
+    <h3>No listings have been added yet in this category</h3>
+    <a href="/addlisting" class = "nav">Be the first to add a listing</a>
+</article>
+{{/each}}
+<article id = "nothingmatches">
+    <h2>No Listings Match your community search</h2>
+</article>
+</body>
+<script type="text/javascript">
+    function onStart() {
+        var unhide = document.getElementById("nothingmatches");
+        unhide.style.display = "none";
+    }
+    function apartmentchecker() {
+        var communityBar = document.getElementById("community");
+        var communityName = communityBar.value.toLowerCase();
+        var listings = document.getElementsByClassName("listing");
+        var somethingDisp = false;
+        var unhide = document.getElementById("nothingmatches");
+        unhide.style.display = "none";
+        if (listings != null) {
+            for (var k = 0; k < listings.length; k++) {
+                var itsComm = (listings[k].getElementsByClassName("community")[0].textContent).toLowerCase();
+                if (communityName == itsComm || itsComm.startsWith(communityName)) {
+                    listings[k].style.display = "";
+                    somethingDisp =true;
+                }
+                else
+                    listings[k].style.display = "none";
+            }
+        }
+
+        if (!somethingDisp) {
+            unhide.style.display = "";
+        }
+        
+
+
+    }
+</script>
+</html>

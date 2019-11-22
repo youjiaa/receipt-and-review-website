@@ -1,0 +1,39 @@
+/* Please add your own! */
+.input-field {
+    padding: 10px 0;
+}
+article {
+    padding: 20px;
+    border: 5px solid turquoise;
+}
+label {
+    display: block;
+    padding-bottom: 10px;
+}
+
+input {
+    padding: 10px;
+    font-size: 20px;
+}
+
+textarea {
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    width: 80%;
+}
+
+button {
+	border: none;
+	padding: 10px;
+	background-color: teal;
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+}
+.nav {
+    padding: 10px;
+    background-color: teal;
+    font-weight: bold;
+    color: white;
+}
