@@ -15,6 +15,48 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main', partialsDir: "views/par
 app.set('view engine', 'handlebars');
 app.use('/public', express.static('public'));
 
+const mongoose = require('mongoose');
+var dotenv = require('dotenv');
+mongoose.Promise = global.Promise;
+const Recipe = require('./models/Recipe');
+const Review = require('./models/Review');
+
+// Load environment variables
+
+dotenv.config();
+
+// Connect to the database
+console.log(process.env.MONGODB);
+mongoose.connect(process.env.MONGODB);
+
+// Making sure we are connected
+mongoose.connection.on('error', function() {
+  console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
+  process.exit(1);
+});
+
+// Test endpoint
+app.post('/recipe', function(req, res) {
+  const recipe = new Recipe({
+    name: req.body.name,
+    ingredients: [{
+      name: "testIngredient",
+      amount: parseInt(3),
+      unit: "cups"
+    }],
+    rating: parseFloat(req.body.rating),
+    prepTime: parseInt(req.body.prepTime),
+    cookTime: parseInt(req.body.cookTime),
+    directions: req.body.directions,
+    reviews: []
+    });
+
+    recipe.save(function(err) {
+      if (err) throw err;
+      return res.send('Successfully inserted the recipe!')
+    });
+  });
+
 /* Add whatever endpoints you need! Remember that your API endpoints must
  * have '/api' prepended to them. Please remember that you need at least 5
  * endpoints for the API, and 5 others.

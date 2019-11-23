@@ -7,7 +7,7 @@
     iv. Name of recipe (string)
     v. Prep Time (int)
     vi. Cook time (int)
-    vii. Directions (string)
+    vii. Directions - Array of Strings, each string representing a step
 ## What data will a review have? 
     i. String with review
     ii. String with title of review

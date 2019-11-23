@@ -17,9 +17,11 @@
     "dependencies": {
         "body-parser": "^1.17.1",
         "data-util": "0.0.2",
+        "dotenv": "^8.2.0",
         "express": "^4.17.1",
         "express-handlebars": "^3.0.0",
         "moment": "^2.24.0",
+        "mongoose": "^5.7.12",
         "morgan": "^1.8.1",
         "request": "^2.88.0"
     }
