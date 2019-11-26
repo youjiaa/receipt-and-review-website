@@ -15,6 +15,11 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main', partialsDir: "views/par
 app.set('view engine', 'handlebars');
 app.use('/public', express.static('public'));
 
+// For importing/using the modules recipe.js and review.js
+var reviewOperations = require("./review")
+var recipeOperations = require("./recipe")
+
+// For MongoDB
 const mongoose = require('mongoose');
 var dotenv = require('dotenv');
 mongoose.Promise = global.Promise;
@@ -93,13 +98,6 @@ app.get('/api/bythebed', function (req, res) {
   res.send(dataUtil.getByTheBed(_DATA));
 })
 
-
-
-
-app.get("/addlisting", function(req, res) {
-  res.render('addlisting');
-})
-
 app.post('/addlisting', function(req,res) {
   var body = req.body;
   body.features = body.features.split(",");
@@ -136,6 +134,10 @@ app.post('/api/addlisting', function(req,res) {
 
 // .get() functionality should be here, but the information should be encapsulated
 // and obtained in the recipe.js and review.js files
+app.get("/addrecipe", function(req, res) {
+  res.render('addrecipe');
+})
+
 app.get('/listings', function(req,res) {
   res.render('listings', {
     data: _DATA,
