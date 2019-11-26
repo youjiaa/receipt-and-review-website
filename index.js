@@ -47,7 +47,7 @@ app.post('/recipe', function(req, res) {
     rating: parseFloat(req.body.rating),
     prepTime: parseInt(req.body.prepTime),
     cookTime: parseInt(req.body.cookTime),
-    directions: req.body.directions,
+    directions: this.directions.push.req.body.directions,
     reviews: []
     });
 
