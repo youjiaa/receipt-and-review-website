@@ -127,6 +127,15 @@ app.post('/api/addlisting', function(req,res) {
   res.redirect("/");
 })
 
+// Note by Theo:
+// These are the endpoints that I used to get all of the different listings
+// Use these as a baseline to get the data needed for the recipe project
+
+// Refer to my data-util.js to get some more information on how I went about
+// Filtering the data json object to get the info I needed.
+
+// .get() functionality should be here, but the information should be encapsulated
+// and obtained in the recipe.js and review.js files
 app.get('/listings', function(req,res) {
   res.render('listings', {
     data: _DATA,
@@ -140,10 +149,7 @@ app.get('/random', function(req, res) {
     header: "Random Listing"
   })
 })
-/* app.listen(3000, function() {
-    console.log('Listening on port 3000!');
-}); */
-app.listen(process.env.PORT || 3000);
+
 app.get('/tenmonth', function(req, res) {
   res.render('listings', {
     data: dataUtil.getAllTenMonthLeases(_DATA),
@@ -177,3 +183,8 @@ app.get('/bythebed', function (req, res) {
     data: dataUtil.getByTheBed(_DATA)
   })
 })
+
+/* app.listen(3000, function() {
+    console.log('Listening on port 3000!');
+}); */
+app.listen(process.env.PORT || 3000);
