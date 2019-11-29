@@ -35,13 +35,13 @@ console.log(process.env.MONGODB);
 mongoose.connect(process.env.MONGODB);
 
 // Making sure we are connected
-mongoose.connection.on('error', function() {
+mongoose.connection.on('error', function () {
   console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
   process.exit(1);
 });
 
 // Test endpoint
-app.post('/recipe', function(req, res) {
+app.post('/recipe', function (req, res) {
   const recipe = new Recipe({
     name: req.body.name,
     ingredients: [{
@@ -54,76 +54,99 @@ app.post('/recipe', function(req, res) {
     cookTime: parseInt(req.body.cookTime),
     directions: this.directions.push.req.body.directions,
     reviews: []
-    });
-
-    recipe.save(function(err) {
-      if (err) throw err;
-      return res.send('Successfully inserted the recipe!')
-    });
   });
+
+  recipe.save(function (err) {
+    if (err) throw err;
+    return res.send('Successfully inserted the recipe!')
+  });
+});
 
 /* Add whatever endpoints you need! Remember that your API endpoints must
  * have '/api' prepended to them. Please remember that you need at least 5
  * endpoints for the API, and 5 others.
  */
-
-app.get('/',function(req,res){
-  res.render('home',{
-    header: "Home",
-    content: "Welcome to College Park Student Housing Finder",
-    data: _DATA
-  });
-})
-
-app.get('/api/listings', function(req, res) {
-  res.send(_DATA);
-})
-app.get('/api/random', function(req, res) {
+app.get('/api/random', function (req, res) {
   res.send(dataUtil.getRandom(_DATA));
 })
 
-app.get('/api/tenmonth', function(req, res) {
-  res.send(dataUtil.getAllTenMonthLeases(_DATA));
+app.get('/api/highestRated', function (req, res) {
+  res.send(dataUtil.getHighestRated(_DATA));
 })
 
-app.get('/api/new', function(req, res) {
+//most reviewed
+app.get('/api/popular', function (req, res) {
+  res.send(dataUtil.getRecentlyAdded(_DATA));
+})
+
+app.get('/api/newest', function (req, res) {
   res.send(_DATA[_DATA.length - 1]);
 })
 
-app.get('/api/underonek', function(req, res) {
-  res.send(dataUtil.getUnderOneK(_DATA));
+//not done with util func
+app.get('/api/holiday', function (req, res) {
+  res.send(dataUtil.getHoliday(_DATA));
 })
 
-app.get('/api/bythebed', function (req, res) {
-  res.send(dataUtil.getByTheBed(_DATA));
+//not done with util func
+app.get('/api/quick', function (req, res) {
+  res.send(dataUtil.getQuick(_DATA));
 })
 
-app.post('/addlisting', function(req,res) {
-  var body = req.body;
-  body.features = body.features.split(",");
-  body.time = moment().format('MMMM Do YYYY, h:mm a');
-
-  _DATA.push(req.body);
-  dataUtil.saveData(_DATA);
-  res.redirect("/");
+//post to api endpoint
+app.post('/api/addRecipe', function (req, res) {
 
 })
 
-app.post('/api/addlisting', function(req,res) {
-  var body = req.body;
-  body.features = [];
-  if(body['features[0]']) {
-    var i = 0;
-    while (body["features[" + i + "]"]) {
-      body.features.push(body["features[" + i + "]"]);
-      delete body["features[" + i + "]"];
-      i++;
-    }
+app.post('/api/addReview', function (req, res) {
+
+})
+
+//delete a recipe
+app.delete('/removeRecipe', (req, res) => {
+  if (!req.query.name) {
+    return res.status(400).send('Missing query parameter: recipe name')
   }
-  _DATA.push(body);
-  dataUtil.saveData(_DATA);
-  res.redirect("/");
+
+  Recipe.findOneAndRemove({
+    name: req.query.name
+  })
+    .then(doc => {
+      res.json(doc)
+    })
+    .catch(err => {
+      res.status(500).json(err)
+    })
 })
+
+
+// app.post('/addlisting', function (req, res) {
+//   var body = req.body;
+//   body.features = body.features.split(",");
+//   body.time = moment().format('MMMM Do YYYY, h:mm a');
+
+//   _DATA.push(req.body);
+//   dataUtil.saveData(_DATA);
+//   res.redirect("/");
+
+// })
+
+// app.post('/api/addlisting', function (req, res) {
+//   var body = req.body;
+//   body.features = [];
+//   if (body['features[0]']) {
+//     var i = 0;
+//     while (body["features[" + i + "]"]) {
+//       body.features.push(body["features[" + i + "]"]);
+//       delete body["features[" + i + "]"];
+//       i++;
+//     }
+//   }
+//   _DATA.push(body);
+//   dataUtil.saveData(_DATA);
+//   res.redirect("/");
+// })
+
 
 // Note by Theo:
 // These are the endpoints that I used to get all of the different listings
@@ -134,25 +157,31 @@ app.post('/api/addlisting', function(req,res) {
 
 // .get() functionality should be here, but the information should be encapsulated
 // and obtained in the recipe.js and review.js files
-app.get("/addrecipe", function(req, res) {
-  res.render('addrecipe');
+
+//post in html form 
+app.get('/addRecipe', function (req, res) {
+  res.render('addRecipe', {})
 })
 
-app.get('/listings', function(req,res) {
+app.get('/addReview', function (req, res) {
+  res.render('addReview', {})
+})
+
+app.get('/listings', function (req, res) {
   res.render('listings', {
     data: _DATA,
     header: "All Listings"
   });
 })
 
-app.get('/random', function(req, res) {
+app.get('/random', function (req, res) {
   res.render('listings', {
     data: dataUtil.getRandom(_DATA),
     header: "Random Listing"
   })
 })
 
-app.get('/tenmonth', function(req, res) {
+app.get('/tenmonth', function (req, res) {
   res.render('listings', {
     data: dataUtil.getAllTenMonthLeases(_DATA),
     content: "Ten month leases are perfect for students who do not plan on being in the College Park area over the summer.",
@@ -160,7 +189,7 @@ app.get('/tenmonth', function(req, res) {
   })
 })
 
-app.get('/new', function(req, res) {
+app.get('/new', function (req, res) {
   res.render('listings', {
     data: dataUtil.getRecentlyAdded(_DATA),
     content: "Our newest listing!",
@@ -168,7 +197,7 @@ app.get('/new', function(req, res) {
   })
 })
 
-app.get('/underonek', function(req, res) {
+app.get('/underonek', function (req, res) {
   res.render('listings', {
     header: "Listings Under $1000 A Month",
     content: "Listings under $1000 per month per person",
@@ -180,8 +209,8 @@ app.get('/bythebed', function (req, res) {
   res.render('listings', {
     header: "By The Bed Rentals",
     content: "By the bed rentals are unique to student housing. " +
-    "Your housing status does not depend on your roommates' ability to turn in rent on time. " +
-    "Each month, you only pay for your own bedroom's lease.",
+      "Your housing status does not depend on your roommates' ability to turn in rent on time. " +
+      "Each month, you only pay for your own bedroom's lease.",
     data: dataUtil.getByTheBed(_DATA)
   })
 })

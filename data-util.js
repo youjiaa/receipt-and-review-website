@@ -28,7 +28,7 @@ function getAllTenMonthLeases(data) {
 function getRandom(data) {
     var random = [];
     if (data.length > 0)
-        random.push(data[Math.floor(Math.random()*data.length)]);
+        random.push(data[Math.floor(Math.random() * data.length)]);
     return random;
 }
 
@@ -41,10 +41,10 @@ function getRecentlyAdded(data) {
 
 function getUnderOneK(data) {
     var target = [];
-    for (var i  = 0 ; i < data.length; i++) {
+    for (var i = 0; i < data.length; i++) {
         if (data[i].rent < 1000)
             target.push(data[i]);
-        else if (data[i].div == "Per Unit" && data[i].rent/data[i].beds < 1000)
+        else if (data[i].div == "Per Unit" && data[i].rent / data[i].beds < 1000)
             target.push(data[i]);
     }
 
@@ -59,6 +59,10 @@ function getByTheBed(data) {
     }
     return bybed;
 
+}
+
+function getHighestRated(data) {
+    var
 }
 
 module.exports = {
