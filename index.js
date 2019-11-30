@@ -178,7 +178,7 @@ app.get('/highestRated', function (req, res) {
 
 //most reviewed
 app.get('/popular', function (req, res) {
-  res.render('listings', {
+  res.render('recipes', {
     data: dataUtil.getAllTenMonthLeases(_DATA),
     content: "Our highest rated recipe",
     header: "Highest Rated Recipe"
@@ -221,33 +221,11 @@ app.get('/random', function (req, res) {
   })
 })
 
-app.get('/tenmonth', function (req, res) {
-
-})
-
 app.get('/newest', function (req, res) {
   res.render('recipes', {
     data: dataUtil.getRecentlyAdded(_DATA),
-    content: "Our newest listing!",
-    header: "Recently Listed"
-  })
-})
-
-app.get('/underonek', function (req, res) {
-  res.render('listings', {
-    header: "Listings Under $1000 A Month",
-    content: "Listings under $1000 per month per person",
-    data: dataUtil.getUnderOneK(_DATA)
-  })
-})
-
-app.get('/bythebed', function (req, res) {
-  res.render('listings', {
-    header: "By The Bed Rentals",
-    content: "By the bed rentals are unique to student housing. " +
-      "Your housing status does not depend on your roommates' ability to turn in rent on time. " +
-      "Each month, you only pay for your own bedroom's lease.",
-    data: dataUtil.getByTheBed(_DATA)
+    content: "Our newest recipe!",
+    header: "Newest Recipe"
   })
 })
 

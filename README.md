@@ -8,6 +8,7 @@
     v. Prep Time (int)
     vi. Cook time (int)
     vii. Directions - Array of Strings, each string representing a step
+    viii. Date posted
 ## What data will a review have? 
     i. String with review
     ii. String with title of review
@@ -25,7 +26,7 @@
     ii. Homepage: have a button that lets you write a recipe
 ## 4. API Endpoints (Youjia)
     i. Post Endpoints: adding recipe, adding a review
-    ii. Deleting EndpointL deleting recipe, deleting a review
+    ii. Deleting Endpoints: deleting recipe, deleting a review
     iii. Additional Endpoints: random, highest rated, popular, newest recipe, holiday recipes, quick and easy recipes 
 ## 5. Modules (see week 5- Express.js #1 lecture) (Theo)
     We'll create two separate modules
