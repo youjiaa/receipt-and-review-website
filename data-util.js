@@ -62,7 +62,7 @@ function getByTheBed(data) {
 }
 
 function getHighestRated(data) {
-    var
+    //var
 }
 
 module.exports = {

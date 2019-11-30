@@ -159,8 +159,48 @@ app.delete('/removeRecipe', (req, res) => {
 // and obtained in the recipe.js and review.js files
 
 //post in html form 
+
+app.get('/',function(req,res){
+  res.render('home',{
+    header: "Home",
+    content: "Welcome to UMD Recipes",
+    data: _DATA
+  });
+})
+
+app.get('/highestRated', function (req, res) {
+  res.render('recipes', {
+    data: dataUtil.getAllTenMonthLeases(_DATA),
+    content: "Our highest rated recipe",
+    header: "Highest Rated Recipe"
+  })
+})
+
+//most reviewed
+app.get('/popular', function (req, res) {
+  res.render('listings', {
+    data: dataUtil.getAllTenMonthLeases(_DATA),
+    content: "Our highest rated recipe",
+    header: "Highest Rated Recipe"
+  })
+})
+
+app.get('/holiday', function (req, res) {
+  res.render('recipes', {
+    data: _DATA,
+    header: "Holiday Recipes"
+  });
+})
+
+app.get('/quick', function (req, res) {
+  res.render('recipes', {
+    data: _DATA,
+    header: "Quick & Easy Recipes"
+  });
+})
+
 app.get('/addRecipe', function (req, res) {
-  res.render('addRecipe', {})
+  res.render('addrecipe', {})
 })
 
 app.get('/addReview', function (req, res) {
@@ -168,29 +208,25 @@ app.get('/addReview', function (req, res) {
 })
 
 app.get('/allRecipes', function (req, res) {
-  res.render('listings', {
+  res.render('recipes', {
     data: _DATA,
     header: "All Recipes"
   });
 })
 
 app.get('/random', function (req, res) {
-  res.render('listings', {
+  res.render('recipes', {
     data: dataUtil.getRandom(_DATA),
     header: "Random Recipe"
   })
 })
 
 app.get('/tenmonth', function (req, res) {
-  res.render('listings', {
-    data: dataUtil.getAllTenMonthLeases(_DATA),
-    content: "Ten month leases are perfect for students who do not plan on being in the College Park area over the summer.",
-    header: "Ten Month Leases"
-  })
+
 })
 
-app.get('/new', function (req, res) {
-  res.render('listings', {
+app.get('/newest', function (req, res) {
+  res.render('recipes', {
     data: dataUtil.getRecentlyAdded(_DATA),
     content: "Our newest listing!",
     header: "Recently Listed"
