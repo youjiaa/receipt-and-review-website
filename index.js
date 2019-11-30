@@ -167,17 +167,17 @@ app.get('/addReview', function (req, res) {
   res.render('addReview', {})
 })
 
-app.get('/listings', function (req, res) {
+app.get('/allRecipes', function (req, res) {
   res.render('listings', {
     data: _DATA,
-    header: "All Listings"
+    header: "All Recipes"
   });
 })
 
 app.get('/random', function (req, res) {
   res.render('listings', {
     data: dataUtil.getRandom(_DATA),
-    header: "Random Listing"
+    header: "Random Recipe"
   })
 })
 
