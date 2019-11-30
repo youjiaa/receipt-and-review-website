@@ -5,7 +5,7 @@ var exphbs = require('express-handlebars');
 var moment = require('moment');
 var app = express();
 var dataUtil = require("./data-util");
-var _DATA = dataUtil.loadData().listings;
+var _DATA = dataUtil.loadData().recipes;
 var request = require('request');
 
 app.use(logger('dev'));
@@ -119,17 +119,18 @@ app.delete('/removeRecipe', (req, res) => {
     })
 })
 
+// Currently, the addRecipe posts to JSON, modify
+// to post to MongoDB
+app.post('/addRecipe', function (req, res) {
+   var body = req.body;
+   body.ingredients = body.ingredients.split(",");
+   body.directions = body.directions.split(";");
+   body.time = moment().format('MMMM Do YYYY, h:mm a');
 
-// app.post('/addlisting', function (req, res) {
-//   var body = req.body;
-//   body.features = body.features.split(",");
-//   body.time = moment().format('MMMM Do YYYY, h:mm a');
-
-//   _DATA.push(req.body);
-//   dataUtil.saveData(_DATA);
-//   res.redirect("/");
-
-// })
+   _DATA.push(req.body);
+   dataUtil.saveData(_DATA);
+   res.redirect("/");
+ })
 
 // app.post('/api/addlisting', function (req, res) {
 //   var body = req.body;

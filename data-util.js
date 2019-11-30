@@ -8,7 +8,7 @@ function loadData() {
 
 function saveData(data) {
     var obj = {
-        listings: data
+        recipes: data
     };
 
     fs.writeFileSync('data.json', JSON.stringify(obj));

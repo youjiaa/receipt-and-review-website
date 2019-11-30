@@ -5,29 +5,33 @@
 <p>{{content}}</p>
 <body onload="onStart()">
 <form> 
-Search by Recipe Name: <input type="text" placeholder="Search for Recipe" id = "community" name="search" size="20" onkeyup="apartmentchecker()" autofocus>
+Search by Recipe Name: <input type="text" placeholder="Search for Recipe" id = "recipe" name="search" size="20" onkeyup="recipechecker()" autofocus>
 </form>
-</article>
 {{#each data}}
-<article class="listing">
+<article class="entirerecipe">
+
+    {{! need to add: holiday recipe/quick & easy designations, reviews link, average review score}}
     <i>Added {{time}}</i>
-    <h3 class="community">{{this.community}}</h3> 
-    <div class = "entirelisting">
-        {{this.beds}} Bedrooms <br>
-        {{this.baths}} Bathrooms <br>
-        ${{this.rent}} {{this.div}} Per Month <br>
-        Length of Lease: {{this.length}} <br> 
-        <p class="description">{{this.description}}</p>
-        Features <br>
+    <h3 class="recipeName">{{this.recipeName}}</h3> 
+    <div>
+        Prep Time: {{this.prepTime}} Minutes <br>
+        Cook Time: {{this.cookTime}} Minutes <br>
+        Ingredients <br>
         <ul>
-            {{#each this.features}}
+            {{#each this.ingredients}}
             <li>{{this}}</li>
             {{else}}
-            The lessor has not shared any features with us.
+            There doesn't appear to be any ingredients for this recipe.
             {{/each}}
         </ul>
-        Contact: {{this.name}} <br>
-        Phone: {{this.phone}} <br>
+        Directions <br>
+        <ol>
+            {{#each this.directions}}
+            <li>{{this}}</li>
+            {{else}}
+            You don't need to follow any directions for this recipe. Yay!
+            {{/each}}
+        </ol>
         <br>
         {{!Here, make the data from the listing look nice in a presentatble format}}
     </div>
@@ -35,9 +39,9 @@ Search by Recipe Name: <input type="text" placeholder="Search for Recipe" id = "
 
 {{else}}
 
-<article class="none">
-    <h3>No listings have been added yet in this category</h3>
-    <a href="/addrecipe" class = "nav">Be the first to add a recipe</a>
+<article>
+    <h3>No recipes have been added yet</h3>
+    <a href="/addRecipe">Be the first to add a recipe</a>
 </article>
 {{/each}}
 <article id = "nothingmatches">
@@ -49,22 +53,22 @@ Search by Recipe Name: <input type="text" placeholder="Search for Recipe" id = "
         var unhide = document.getElementById("nothingmatches");
         unhide.style.display = "none";
     }
-    function apartmentchecker() {
-        var communityBar = document.getElementById("community");
-        var communityName = communityBar.value.toLowerCase();
-        var listings = document.getElementsByClassName("listing");
+    function recipechecker() {
+        var recipeBar = document.getElementById("recipeName");
+        var recipeName = recipeBar.value.toLowerCase();
+        var recipes = document.getElementsByClassName("entirerecipe");
         var somethingDisp = false;
         var unhide = document.getElementById("nothingmatches");
         unhide.style.display = "none";
-        if (listings != null) {
-            for (var k = 0; k < listings.length; k++) {
-                var itsComm = (listings[k].getElementsByClassName("community")[0].textContent).toLowerCase();
-                if (communityName == itsComm || itsComm.startsWith(communityName)) {
-                    listings[k].style.display = "";
+        if (recipes != null) {
+            for (var k = 0; k < recipes.length; k++) {
+                var itsComm = (recipes[k].getElementsByClassName("recipeName")[0].textContent).toLowerCase();
+                if (recipeName == itsComm || itsComm.startsWith(recipeName)) {
+                    recipes[k].style.display = "";
                     somethingDisp =true;
                 }
                 else
-                    listings[k].style.display = "none";
+                    recipes[k].style.display = "none";
             }
         }
 

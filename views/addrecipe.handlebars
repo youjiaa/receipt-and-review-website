@@ -1,13 +1,13 @@
 <article>
     <h2>Add Your Recipe!</h2>
-    <form method="POST" action="/recipe">
+    <form method="POST" action="/addRecipe">
         <div class="input-field">
             <label>Name of Recipe</label>
             <input type="text" name="recipeName" size="50">
         </div>
         <div class="input-field">
             <label>Ingredients (separate with commas)</label>
-            <input type="text" name="ingredients " size="60" rows="20">
+            <input type="text" name="ingredients" size="60" rows="20">
         </div>
         <div class="input-field">
             <label>Prep Time (minutes)</label>
@@ -19,8 +19,8 @@
         </div>
         <div class= "input-field">
             <label>Special Recipe</label>
-            <input type="checkbox" name="div" value="quickAndEasy"> Quick &amp; Easy Recipe<br>
-            <input type="checkbox" name="div" value="holidayRecipe"> Holiday Recipe <br>
+            <input type="checkbox" name="special" value="quickAndEasy"> Quick &amp; Easy Recipe<br>
+            <input type="checkbox" name="special" value="holidayRecipe"> Holiday Recipe <br>
         </div>
         <div class ="input-field">
             <label>Directions (separate with semicolons)</label>

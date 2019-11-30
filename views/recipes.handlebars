@@ -4,24 +4,29 @@
 </article>
 {{#each data}}
 <article class="entirerecipe">
+
+    {{! need to add: holiday recipe/quick & easy designations, reviews link, average review score}}
     <i>Added {{time}}</i>
-    <h3 class="community">{{this.community}}</h3> 
+    <h3 class="recipeName">{{this.recipeName}}</h3> 
     <div>
-        {{this.beds}} Bedrooms <br>
-        {{this.baths}} Bathrooms <br>
-        ${{this.rent}} {{this.div}} Per Month <br>
-        Length of Lease: {{this.length}} <br> 
-        <p class="description">{{this.description}}</p>
-        Features <br>
+        Prep Time: {{this.prepTime}} Minutes <br>
+        Cook Time: {{this.cookTime}} Minutes <br>
+        Ingredients <br>
         <ul>
-            {{#each this.features}}
+            {{#each this.ingredients}}
             <li>{{this}}</li>
             {{else}}
-            The lessor has not shared any features with us.
+            There doesn't appear to be any ingredients for this recipe.
             {{/each}}
         </ul>
-        Contact: {{this.name}} <br>
-        Phone: {{this.phone}} <br>
+        Directions <br>
+        <ol>
+            {{#each this.directions}}
+            <li>{{this}}</li>
+            {{else}}
+            You don't need to follow any directions for this recipe. Yay!
+            {{/each}}
+        </ol>
         <br>
         {{!Here, make the data from the listing look nice in a presentatble format}}
     </div>
