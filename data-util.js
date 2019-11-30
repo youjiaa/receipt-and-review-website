@@ -14,17 +14,6 @@ function saveData(data) {
     fs.writeFileSync('data.json', JSON.stringify(obj));
 }
 
-function getAllTenMonthLeases(data) {
-    var allTenMos = [];
-    for (var i = 0; i < data.length; i++) {
-        if (data[i].length == "10 Months") {
-            allTenMos.push(data[i])
-        }
-    }
-
-    return allTenMos;
-}
-
 function getRandom(data) {
     var random = [];
     if (data.length > 0)
@@ -32,14 +21,14 @@ function getRandom(data) {
     return random;
 }
 
-function getRecentlyAdded(data) {
+function getHoliday(data) {
     var recent = [];
     if (data.length > 0)
         recent.push(data[data.length - 1]);
     return recent;
 }
 
-function getUnderOneK(data) {
+function getQuick(data) {
     var target = [];
     for (var i = 0; i < data.length; i++) {
         if (data[i].rent < 1000)
@@ -51,7 +40,7 @@ function getUnderOneK(data) {
     return target;
 }
 
-function getByTheBed(data) {
+function getPopular(data) {
     var bybed = [];
     for (var i = 0; i < data.length; i++) {
         if (data[i].div == "Per Person")
@@ -68,9 +57,10 @@ function getHighestRated(data) {
 module.exports = {
     loadData: loadData,
     saveData: saveData,
-    getAllTenMonthLeases: getAllTenMonthLeases,
+    getHighestRated: getHighestRated,
     getRandom: getRandom,
     getRecentlyAdded: getRecentlyAdded,
-    getUnderOneK: getUnderOneK,
-    getByTheBed: getByTheBed
+    getHoliday: getHoliday,
+    getQuick: getQuick,
+    getPopular: getPopular
 }

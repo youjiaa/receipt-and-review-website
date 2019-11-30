@@ -76,7 +76,7 @@ app.get('/api/highestRated', function (req, res) {
 
 //most reviewed
 app.get('/api/popular', function (req, res) {
-  res.send(dataUtil.getRecentlyAdded(_DATA));
+  res.send(dataUtil.getPopular(_DATA));
 })
 
 app.get('/api/newest', function (req, res) {
@@ -171,7 +171,7 @@ app.get('/',function(req,res){
 
 app.get('/highestRated', function (req, res) {
   res.render('recipes', {
-    data: dataUtil.getAllTenMonthLeases(_DATA),
+    data: dataUtil.getHighestRated(_DATA),
     content: "Our highest rated recipe",
     header: "Highest Rated Recipe"
   })
@@ -180,7 +180,7 @@ app.get('/highestRated', function (req, res) {
 //most reviewed
 app.get('/popular', function (req, res) {
   res.render('recipes', {
-    data: dataUtil.getAllTenMonthLeases(_DATA),
+    data: dataUtil.getPopular(_DATA),
     content: "Our highest rated recipe",
     header: "Highest Rated Recipe"
   })
@@ -188,24 +188,16 @@ app.get('/popular', function (req, res) {
 
 app.get('/holiday', function (req, res) {
   res.render('recipes', {
-    data: _DATA,
+    data: getHoliday(_DATA),
     header: "Holiday Recipes"
   });
 })
 
 app.get('/quick', function (req, res) {
   res.render('recipes', {
-    data: _DATA,
+    data: getQuick(_DATA),
     header: "Quick & Easy Recipes"
   });
-})
-
-app.get('/addRecipe', function (req, res) {
-  res.render('addrecipe', {})
-})
-
-app.get('/addReview', function (req, res) {
-  res.render('addReview', {})
 })
 
 app.get('/allRecipes', function (req, res) {
@@ -228,6 +220,14 @@ app.get('/newest', function (req, res) {
     content: "Our newest recipe!",
     header: "Newest Recipe"
   })
+})
+
+app.get('/addRecipe', function (req, res) {
+  res.render('addrecipe', {})
+})
+
+app.get('/addReview', function (req, res) {
+  res.render('addReview', {})
 })
 
 /* app.listen(3000, function() {
