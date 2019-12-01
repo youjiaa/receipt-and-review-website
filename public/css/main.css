@@ -22,6 +22,10 @@ textarea {
     width: 80%;
 }
 
+#title {
+    padding-left: 20px;
+}
+
 button {
 	border: none;
 	padding: 10px;
@@ -39,4 +43,4 @@ button {
 img {
     height: 100px;
     width: 110px;
-  }
+}

@@ -11,10 +11,9 @@
     viii. Date posted
 ## What data will a review have? 
     i. String with review
-    ii. String with title of review
-    iii. int with rating (scale of 1-5) - scale subject to change
+    ii. int with rating (scale of 1-5)
 ## Fulfillment of Midterm Requirements (Theo)
-    i. Copy over midterm project and modify to represent a recipe sharing site
+    i. Copy over midterm project and modify to represent a recipe sharing site - Done
 ## 1. Schemas (Wilson)
     i. Recipes
     ii. Reviews
@@ -31,7 +30,7 @@
     ii. Deleting Endpoints: deleting recipe, deleting a review
     iii. Additional Endpoints: random, highest rated, popular, newest recipe, holiday recipes, quick and easy recipes 
 ## 5. Modules (see week 5- Express.js #1 lecture) (Theo)
-    We'll create two separate modules
+    We'll create two separate modules - Done
     i. recipe.js
     ii. review.js
 ## 6. NPM Packages
@@ -42,3 +41,4 @@
 ## 8. Heroku (Theo)
     i. Theo will take care of this once everything's done
 ## 9. README (Theo)
+    i. See READMEUser.md

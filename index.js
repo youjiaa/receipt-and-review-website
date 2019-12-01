@@ -66,10 +66,18 @@ app.post('/recipe', function (req, res) {
 // to post to MongoDB
 app.post('/addRecipe', function (req, res) {
   var body = req.body;
-  body.ingredients = body.ingredients.split(",");
-  body.directions = body.directions.split(";");
+  var ingredientPassedIn = body.ingredients.split(",");
+  var filteredIngredients = ingredientPassedIn.filter(function(value, index, directs){
+    return value != "" && value !=" ";
+  });
+  body.ingredients = filteredIngredients;
+  var directs = body.directions.split(";");
+  var filteredDirects = directs.filter(function(value, index, directs){
+    return value != "" && value !=" ";
+  });
+  body.directions = filteredDirects;
   body.time = moment().format('MMMM Do YYYY, h:mm a');
-  if (!body.special){
+  if (!body.special){ //body.special DNE
     body.holiday = false;
     body.quick = false;
   }
@@ -84,12 +92,28 @@ app.post('/addRecipe', function (req, res) {
     body.quick = true;
   }
 
-  else {
+  else { //body.special is an array, so that means both were selected
     body.holiday = true;
-    body.quick = false;
+    body.quick = true;
   }
-
+  body.reviews = [];
+  body.rating = 0;
   _DATA.push(req.body);
+  dataUtil.saveData(_DATA);
+  res.redirect("/");
+})
+
+// Add review currently posts to data.json, revise so it posts to MongoDB
+app.post('/addReview/:name', function(req, res) {
+  var nameOf = req.params.name;
+  var body = req.body;
+  //A review consists of a two element array: arr[0] is the rating, arr[1] is the review content
+  var review = []
+  review.push(body.rating);
+  review.push(body.reviewContent);
+  reviewOperations.addReview(_DATA, nameOf, review);
+  dataUtil.saveData(_DATA);
+  recipeOperations.updateScore(_DATA, nameOf);
   dataUtil.saveData(_DATA);
   res.redirect("/");
 })
@@ -241,8 +265,21 @@ app.get('/addRecipe', function (req, res) {
   res.render('addrecipe', {})
 })
 
-app.get('/addReview', function (req, res) {
-  res.render('addReview', {})
+app.get('/addReview/:nameOfRecip', function (req, res) {
+  var name = req.params.nameOfRecip;
+  res.render('addReview', {
+    nameOfRecip: name
+  })
+})
+
+app.get('/reviews/:name', function (req, res) {
+  var name = req.params.name;
+  var recip = recipeOperations.getRecipeByName(_DATA, name);
+  var reviews = recipeOperations.getReviews(recip);
+  res.render('reviews', {
+    data: reviews,
+    nameRecip: name 
+  })
 })
 
 /* app.listen(3000, function() {

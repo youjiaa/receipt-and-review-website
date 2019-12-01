@@ -1,0 +1,21 @@
+{{!page to look at all the reviews associated with the particular recipe}}
+<article>
+    <h2>Reviews for {{nameRecip}}</h2>
+</article>
+{{#each data}}
+<article class="entirereview">
+
+    {{! need to add: reviews link, average review score, button to delete recipe, reviews list}}
+    <h5>Rating: {{this.rating}}</h5> <br>
+    <i>{{this.reviewBody}}</i> <br>
+    <a href="/removeReview">Delete this Review</a> {{!currently a broken link: fix}}
+</article>
+
+{{else}}
+
+<article>
+    <h3>No reviews have been added yet for this recipe</h3>
+    <a href="/addReview/{{this.nameRecip}}">Be the first to add a review</a>
+</article>
+
+{{/each}}

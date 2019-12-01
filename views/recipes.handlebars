@@ -4,10 +4,8 @@
 </article>
 {{#each data}}
 <article class="entirerecipe">
-
-    {{! need to add: holiday recipe/quick & easy designations, reviews link, average review score}}
-    <i>Added {{time}}</i>
-    <h3 class="recipeName">{{this.recipeName}}</h3> 
+    <i>Posted {{time}}</i>
+    <h3 class="recipeName"><a href="/addreview/{{this.recipeName}}">{{this.recipeName}}</a></h3> 
     <div>
         {{#if this.holiday}}
             <img src="https://i.pinimg.com/originals/bd/5b/7d/bd5b7d0be7dfbfc70b7e0b2efdff83b1.jpg" id = "holidayRecip">
@@ -17,6 +15,7 @@
             <img src="https://www.jing.fm/clipimg/detail/161-1611705_instant-feedback-quick-and-easy-icon.png" id = "quick">
         {{/if}}        
         <br>
+        Average Review Rating: {{this.rating}} <br>
         Prep Time: {{this.prepTime}} Minutes <br>
         Cook Time: {{this.cookTime}} Minutes <br>
         Ingredients <br>
@@ -37,6 +36,9 @@
         </ol>
         <br>
         {{!Here, make the data from the listing look nice in a presentatble format}}
+        <a href="/reviews/{{this.recipeName}}">See Recipe Reviews</a>
+        <br>
+        <a href="/removeRecipe">Remove Recipe</a> {{!currently a broken link}}
     </div>
 </article>
 

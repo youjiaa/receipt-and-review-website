@@ -1,5 +1,31 @@
 {{!page to add a review}}
 
 <article>
+    <h2>Add Your Review!</h2>
+    <form method="POST" action="/addReview/{{nameOfRecip}}">
+        {{!drop down menu to select the recipe to add a review to}}
+        <div class="input-field">
+            <h3>Add a Review for: {{nameOfRecip}}</h3>
+        </div>
 
+        <div class="input-field">
+            <label>Rating</label>
+            <select name="rating">
+                <option disabled selected value> Rating </option>
+                <option value = "1">1</option>
+                <option value = "2">2</option>
+                <option value = "3">3</option>
+                <option value = "4">4</option>
+                <option value = "5">5</option>
+            </select>
+        </div>
+        {{!text area to write the content of the review}}
+        <div class="input-field">
+            <label>Write Your Review Here:</label>
+            <textarea cols="50" rows="4" name = "reviewContent"></textarea>
+        </div>
+        <br>
+        <button type="submit">Post Your Review!</button>
+    </form>
+    
 </article>

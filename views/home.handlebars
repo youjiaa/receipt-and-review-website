@@ -1,19 +1,29 @@
 <!DOCTYPE html>
 <html>
-<article>
+<article id = "homePage">
 <h2>{{header}}</h2>
 <p>{{content}}</p>
 <body onload="onStart()">
 <form> 
-Search by Recipe Name: <input type="text" placeholder="Search for Recipe" id = "recipe" name="search" size="20" onkeyup="recipechecker()" autofocus>
+Search by Recipe Name: <input type="text" placeholder="Search for Recipe" id = "recipeSearch" name="search" size="50" onkeyup="recipechecker()" autofocus>
 </form>
+</body>
+</article>
 {{#each data}}
 <article class="recipeHome">
 
-    {{! need to add: holiday recipe/quick & easy designations, reviews link, average review score}}
-    <i>Added {{time}}</i>
-    <h3 class="recipeName">{{this.recipeName}}</h3> 
+<i>Posted {{time}}</i>
+    <h3 class="recipeName"><a href="/addreview/{{this.recipeName}}">{{this.recipeName}}</a></h3> 
     <div>
+        {{#if this.holiday}}
+            <img src="https://i.pinimg.com/originals/bd/5b/7d/bd5b7d0be7dfbfc70b7e0b2efdff83b1.jpg" id = "holidayRecip">
+        {{/if}}
+        
+        {{#if this.quick}}
+            <img src="https://www.jing.fm/clipimg/detail/161-1611705_instant-feedback-quick-and-easy-icon.png" id = "quick">
+        {{/if}}        
+        <br>
+        Average Review Rating: {{this.rating}} <br>
         Prep Time: {{this.prepTime}} Minutes <br>
         Cook Time: {{this.cookTime}} Minutes <br>
         Ingredients <br>
@@ -21,7 +31,7 @@ Search by Recipe Name: <input type="text" placeholder="Search for Recipe" id = "
             {{#each this.ingredients}}
             <li>{{this}}</li>
             {{else}}
-            There doesn't appear to be any ingredients for this recipe.
+            There doesn't appear to be any ingredients for this recipe. Frugal!
             {{/each}}
         </ul>
         Directions <br>
@@ -34,6 +44,9 @@ Search by Recipe Name: <input type="text" placeholder="Search for Recipe" id = "
         </ol>
         <br>
         {{!Here, make the data from the listing look nice in a presentatble format}}
+        <a href="/reviews/{{this.recipeName}}">See Recipe Reviews</a>
+        <br>
+        <a href="/removeRecipe">Remove Recipe</a> {{!currently a broken link}}
     </div>
 </article>
 
@@ -54,30 +67,26 @@ Search by Recipe Name: <input type="text" placeholder="Search for Recipe" id = "
         unhide.style.display = "none";
     }
     function recipechecker() {
-        var recipeBar = document.getElementById("recipeName");
+        var recipeBar = document.getElementById("recipeSearch");
         var recipeName = recipeBar.value.toLowerCase();
-        var recipes = document.getElementsByClassName("recipeHome");
+        var recipeHome = document.getElementsByClassName("recipeHome");
         var somethingDisp = false;
         var unhide = document.getElementById("nothingmatches");
         unhide.style.display = "none";
-        if (recipes != null) {
-            for (var k = 0; k < recipes.length; k++) {
-                var itsComm = (recipes[k].getElementsByClassName("recipeName")[0].textContent).toLowerCase();
-                if (recipeName == itsComm || itsComm.startsWith(recipeName)) {
-                    recipes[k].style.display = "";
+        if (recipeHome != null) {
+            for (var k = 0; k < recipeHome.length; k++) {
+                var itsRecip = (recipeHome[k].getElementsByClassName("recipeName")[0].textContent).toLowerCase();
+                if (recipeName == itsRecip || itsRecip.startsWith(recipeName)) {
+                    recipeHome[k].style.display = "";
                     somethingDisp =true;
                 }
                 else
-                    recipes[k].style.display = "none";
+                    recipeHome[k].style.display = "none";
             }
         }
-
         if (!somethingDisp) {
             unhide.style.display = "";
         }
-        
-
-
-    }
+    }    
 </script>
 </html>
