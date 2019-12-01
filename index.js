@@ -282,6 +282,9 @@ app.get('/reviews/:name', function (req, res) {
   })
 })
 
+app.get('/description', function (req, res) {
+  res.render('description', {})
+})
 /* app.listen(3000, function() {
     console.log('Listening on port 3000!');
 }); */

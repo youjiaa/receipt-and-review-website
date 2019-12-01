@@ -80,23 +80,37 @@ Navigation Filters
 ### 6. Live Updates
 Sockets
 
-### 7. Viewing the Data
+### 7. Viewing/Adding Data
   Handlebars.js pages:
-  1.
-  2.
-  3.
-  4.
-  5.
+  1. `addReview.handlebars`
+  2. `addrecipe.handlebars`
+  3. `home.handlebars`
+  4. `recipes.handlebars`
+  5. `reviews.handlebars`
+  6. `main.handlebars`
+  7. `description.handlebars`
 
-  Description page `/...`
+  Description page `/description`
 
 ### 8. API
 
   Post Endpoints
+    i. `/addReview/:name`
+    ii. `/addRecipe`
 
   Delete Endpoints
 
-  Additional Endpoints
+  Additional/Get Endpoints
+    i. `/` - Home page
+    ii. `/highestRated` - Recipe with the hihest average rating
+    iii. `/popular` - Most reviewed recipe
+    iv. `/holiday` - Holiday themed recipes
+    v. `/quick` - Quick & Easy recipes
+    vi. `/allRecipes` - All recipes
+    vii. `/newest` - Newest recipe
+    viii. `/addRecipe` - Adding a recipe
+    ix. `/addReview/:nameOfRecip` - Page to add a review
+    x. `/reviews/:name` - All reviews for a particular recipe
 
 ### 9. Modules
   We created the following modules:
@@ -105,13 +119,14 @@ Sockets
 
 ### 10. NPM Packages
   We used the following new npm packages
-  1.
-  2.
+  1. draggable.js
+  2. react.js
 
 ### 11. User Interface
+  i. The user interface has been updated to improve the user experience
 
 ### 12. Deployment
   The website is hosted on: 
 
 ### 13. README
-  See the README for more information
+  See the READMEUser.md file for more information
