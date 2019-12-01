@@ -95,22 +95,22 @@ Sockets
 ### 8. API
 
   Post Endpoints
-    i. `/addReview/:name`
-    ii. `/addRecipe`
+  1. `/addReview/:name`
+  2. `/addRecipe`
 
   Delete Endpoints
 
   Additional/Get Endpoints
-    i. `/` - Home page
-    ii. `/highestRated` - Recipe with the hihest average rating
-    iii. `/popular` - Most reviewed recipe
-    iv. `/holiday` - Holiday themed recipes
-    v. `/quick` - Quick & Easy recipes
-    vi. `/allRecipes` - All recipes
-    vii. `/newest` - Newest recipe
-    viii. `/addRecipe` - Adding a recipe
-    ix. `/addReview/:nameOfRecip` - Page to add a review
-    x. `/reviews/:name` - All reviews for a particular recipe
+    1. `/` - Home page
+    2. `/highestRated` - Recipe with the hihest average rating
+    3. `/popular` - Most reviewed recipe
+    4. `/holiday` - Holiday themed recipes
+    5. `/quick` - Quick & Easy recipes
+    6. `/allRecipes` - All recipes
+    7. `/newest` - Newest recipe
+    8. `/addRecipe` - Adding a recipe
+    9. `/addReview/:nameOfRecip` - Page to add a review
+    10. `/reviews/:name` - All reviews for a particular recipe
 
 ### 9. Modules
   We created the following modules:
@@ -123,7 +123,7 @@ Sockets
   2. react.js
 
 ### 11. User Interface
-  i. The user interface has been updated to improve the user experience
+  1. The user interface has been updated to improve the user experience
 
 ### 12. Deployment
   The website is hosted on: 
