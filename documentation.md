@@ -16,38 +16,49 @@ URL:
 
 ### 1. Data Format and Storage
 
-Data point fields:
-- `Field 1`:     ...       `Type: ...`
-- `Field 2`:     ...       `Type: ...`
-- `Field 3`:     ...       `Type: ...`
-- `Field 4`:     ...       `Type: ...`
-- `Field 5`:     ...       `Type: ...`
+Data point fields for a recipe:
+- `recipeName`:     Name of the recipe       `Type: String`
+- `ingredients`:     Ingredients needed for the recipe       `Type: String Array`
+- `prepTime`:     Amount of time needed to prepare the ingredients in minutes      `Type: int`
+- `cookTime`:     Amount of time needed to cook in minutes       `Type: int`
+- `time`:     Recipe posting date and time       `Type: String`
+- `reviews`:     Reviews for recipe       `Type: String array- index 0:rating on 1-5 scale, index 1: review content `
+- `directions`:     Steps needed to follow for recipe       `Type: String array`
+- `holiday`:     Holiday recipe designation       `Type: boolean`
+- `quick`:     Quick & Easy recipe designation       `Type: boolean`
+- `rating`:     Average rating for recipe        `Type: number`
 
 Schema: 
 ```javascript
-{
-   ...
-}
+{"recipeName":"Butterscotch Cookies","ingredients":["Sugar"," Caramel"," 2 Eggs"," Three cups flour"],"prepTime":"23","cookTime":"45","special":"holidayRecipe","directions":["Mix sugar and caramel together"," Beat in Eggs"," Add flour"," Bake for 35 minutes in 450 degree oven"],"time":"November 30th 2019, 8:08 pm","holiday":true,"quick":false,"reviews":[["4","So Easy to make!"],["5","Great!"],["4","Awesome!"],["5","Yum"],["2","Meh"]],"rating":"4.0"}
 ```
 
 ### 2. Add New Data
 
-HTML form route: `/...`
+HTML form route: `/addrecipe` and `/addreview/:recipeName`
 
-POST endpoint route: `/api/...`
+POST endpoint route: `/api/addrecipe` and `/addreview/:recipeName`
 
-Example Node.js POST request to endpoint: 
+Example Node.js POST request to endpoint (adding a recipe): 
 ```javascript
 var request = require("request");
 
 var options = { 
     method: 'POST',
-    url: 'http://localhost:3000/api/...',
+    url: 'http://localhost:3000/api/addrecipe',
     headers: { 
         'content-type': 'application/x-www-form-urlencoded' 
     },
     form: { 
-       ...
+       recipeName:"Butterscotch Cookies",
+       ingredients:["Sugar"," Caramel"," 2 Eggs"," Three cups flour"],
+       prepTime:"23",
+       cookTime:"45",
+       directions:["Mix sugar and caramel together"," Beat in Eggs"," Add flour"," Bake for 35 minutes in 450 degree oven"],
+       time:"November 30th 2019, 8:08 pm",
+       holiday:true,
+       quick:false,
+       reviews:[["4","So Easy to make!"],["5","Great recipe!"],["4","Awesome!"],["5","Yum"],["2","Meh"]],rating:"4.0"
     } 
 };
 
@@ -60,25 +71,27 @@ request(options, function (error, response, body) {
 
 ### 3. View Data
 
-GET endpoint route: `/api/...`
+GET endpoint route: `/api/allRecipes` and `/api/reviews/:recipeName`
 
 ### 4. Search Data
 
-Search Field: ...
+Search Field: Name of recipe
 
 ### 5. Navigation Pages
 
 Navigation Filters
-1. name -> `  route  `
-2. ... -> `  ...  `
-3. ... -> `  ...  `
-4. ... -> `  ...  `
-5. ... -> `  ...  `
+1. Random Recipe -> `  /random  `
+2. Highest Rated Recipe -> `  /highestRated  `
+3. Newest recipe -> `  /newest  `
+4. Most popular (most reviewed) recipe -> `  /popular  `
+5. Holiday recipes -> `  /holiday  `
+5. Quick & easy recipes -> `  /quick  `
 
 ### Additional Requirements
 
 ### 6. Live Updates
-Sockets
+1. Automatically adds recipes to page without refresh
+2. Notifcations are present to inform users when a new recipe is added
 
 ### 7. Viewing/Adding Data
   Handlebars.js pages:
