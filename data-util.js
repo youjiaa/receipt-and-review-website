@@ -1,6 +1,8 @@
 //Credit: Blog Post Example from lecture
 
 var fs = require('fs');
+var reviewOperations = require("./review")
+var recipeOperations = require("./recipe")
 
 function loadData() {
     return JSON.parse(fs.readFileSync('data.json'));
@@ -21,37 +23,30 @@ function getRandom(data) {
     return random;
 }
 
+// Modify to filter data
 function getHoliday(data) {
-    var recent = [];
-    if (data.length > 0)
-        recent.push(data[data.length - 1]);
-    return recent;
+    return data;
 }
 
 function getQuick(data) {
-    var target = [];
-    for (var i = 0; i < data.length; i++) {
-        if (data[i].rent < 1000)
-            target.push(data[i]);
-        else if (data[i].div == "Per Unit" && data[i].rent / data[i].beds < 1000)
-            target.push(data[i]);
-    }
-
-    return target;
+    return data;
 }
 
 function getPopular(data) {
-    var bybed = [];
-    for (var i = 0; i < data.length; i++) {
-        if (data[i].div == "Per Person")
-            bybed.push(data[i]);
-    }
-    return bybed;
+    return data;
 
 }
 
 function getHighestRated(data) {
+    return data;
     //var
+}
+
+function getRecentlyAdded(data) {
+    var recent = [];
+    if (data.length > 0)
+        recent.push(data[data.length - 1]);
+    return recent;
 }
 
 module.exports = {

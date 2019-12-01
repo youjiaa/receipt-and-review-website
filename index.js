@@ -62,10 +62,38 @@ app.post('/recipe', function (req, res) {
   });
 });
 
-/* Add whatever endpoints you need! Remember that your API endpoints must
- * have '/api' prepended to them. Please remember that you need at least 5
- * endpoints for the API, and 5 others.
- */
+// Currently, the addRecipe posts to JSON, modify
+// to post to MongoDB
+app.post('/addRecipe', function (req, res) {
+  var body = req.body;
+  body.ingredients = body.ingredients.split(",");
+  body.directions = body.directions.split(";");
+  body.time = moment().format('MMMM Do YYYY, h:mm a');
+  if (!body.special){
+    body.holiday = false;
+    body.quick = false;
+  }
+
+  else if (body.special == "holidayRecipe") {
+    body.holiday = true;
+    body.quick = false;
+  }
+
+  else if (body.special == "quickAndEasy") {
+    body.holiday = false;
+    body.quick = true;
+  }
+
+  else {
+    body.holiday = true;
+    body.quick = false;
+  }
+
+  _DATA.push(req.body);
+  dataUtil.saveData(_DATA);
+  res.redirect("/");
+})
+
 app.get('/api/random', function (req, res) {
   res.send(dataUtil.getRandom(_DATA));
 })
@@ -119,19 +147,6 @@ app.delete('/removeRecipe', (req, res) => {
     })
 })
 
-// Currently, the addRecipe posts to JSON, modify
-// to post to MongoDB
-app.post('/addRecipe', function (req, res) {
-   var body = req.body;
-   body.ingredients = body.ingredients.split(",");
-   body.directions = body.directions.split(";");
-   body.time = moment().format('MMMM Do YYYY, h:mm a');
-
-   _DATA.push(req.body);
-   dataUtil.saveData(_DATA);
-   res.redirect("/");
- })
-
 // app.post('/api/addlisting', function (req, res) {
 //   var body = req.body;
 //   body.features = [];
@@ -181,21 +196,21 @@ app.get('/highestRated', function (req, res) {
 app.get('/popular', function (req, res) {
   res.render('recipes', {
     data: dataUtil.getPopular(_DATA),
-    content: "Our highest rated recipe",
-    header: "Highest Rated Recipe"
+    content: "Our most reviewed recipe",
+    header: "Most Popular Recipe"
   })
 })
 
 app.get('/holiday', function (req, res) {
   res.render('recipes', {
-    data: getHoliday(_DATA),
+    data: dataUtil.getHoliday(_DATA),
     header: "Holiday Recipes"
   });
 })
 
 app.get('/quick', function (req, res) {
   res.render('recipes', {
-    data: getQuick(_DATA),
+    data: dataUtil.getQuick(_DATA),
     header: "Quick & Easy Recipes"
   });
 })

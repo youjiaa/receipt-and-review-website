@@ -8,7 +8,7 @@
 Search by Recipe Name: <input type="text" placeholder="Search for Recipe" id = "recipe" name="search" size="20" onkeyup="recipechecker()" autofocus>
 </form>
 {{#each data}}
-<article class="entirerecipe">
+<article class="recipeHome">
 
     {{! need to add: holiday recipe/quick & easy designations, reviews link, average review score}}
     <i>Added {{time}}</i>
@@ -56,7 +56,7 @@ Search by Recipe Name: <input type="text" placeholder="Search for Recipe" id = "
     function recipechecker() {
         var recipeBar = document.getElementById("recipeName");
         var recipeName = recipeBar.value.toLowerCase();
-        var recipes = document.getElementsByClassName("entirerecipe");
+        var recipes = document.getElementsByClassName("recipeHome");
         var somethingDisp = false;
         var unhide = document.getElementById("nothingmatches");
         unhide.style.display = "none";

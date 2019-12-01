@@ -13,6 +13,8 @@
     i. String with review
     ii. String with title of review
     iii. int with rating (scale of 1-5) - scale subject to change
+## Fulfillment of Midterm Requirements (Theo)
+    i. Copy over midterm project and modify to represent a recipe sharing site
 ## 1. Schemas (Wilson)
     i. Recipes
     ii. Reviews

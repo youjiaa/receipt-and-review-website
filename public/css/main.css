@@ -19,7 +19,6 @@ input {
 textarea {
     padding: 10px;
     font-size: 20px;
-    font-weight: bold;
     width: 80%;
 }
 
@@ -37,3 +36,7 @@ button {
     font-weight: bold;
     color: white;
 }
+img {
+    height: 100px;
+    width: 110px;
+  }

@@ -9,6 +9,14 @@
     <i>Added {{time}}</i>
     <h3 class="recipeName">{{this.recipeName}}</h3> 
     <div>
+        {{#if this.holiday}}
+            <img src="https://i.pinimg.com/originals/bd/5b/7d/bd5b7d0be7dfbfc70b7e0b2efdff83b1.jpg" id = "holidayRecip">
+        {{/if}}
+        
+        {{#if this.quick}}
+            <img src="https://www.jing.fm/clipimg/detail/161-1611705_instant-feedback-quick-and-easy-icon.png" id = "quick">
+        {{/if}}        
+        <br>
         Prep Time: {{this.prepTime}} Minutes <br>
         Cook Time: {{this.cookTime}} Minutes <br>
         Ingredients <br>
@@ -16,7 +24,7 @@
             {{#each this.ingredients}}
             <li>{{this}}</li>
             {{else}}
-            There doesn't appear to be any ingredients for this recipe.
+            There doesn't appear to be any ingredients for this recipe. Frugal!
             {{/each}}
         </ul>
         Directions <br>
@@ -35,8 +43,8 @@
 {{else}}
 
 <article>
-    <h3>No recipes have been added yet</h3>
-    <a href="/addRecipe">Be the first to add a recipe</a>
+    <h3>No recipes have been added yet to this category</h3>
+    <a href="/addRecipe">Be the first to add a recipe to this category</a>
 </article>
 
 {{/each}}
