@@ -101,16 +101,16 @@ Sockets
   Delete Endpoints
 
   Additional/Get Endpoints
-    1. `/` - Home page
-    2. `/highestRated` - Recipe with the hihest average rating
-    3. `/popular` - Most reviewed recipe
-    4. `/holiday` - Holiday themed recipes
-    5. `/quick` - Quick & Easy recipes
-    6. `/allRecipes` - All recipes
-    7. `/newest` - Newest recipe
-    8. `/addRecipe` - Adding a recipe
-    9. `/addReview/:nameOfRecip` - Page to add a review
-    10. `/reviews/:name` - All reviews for a particular recipe
+  1. `/` - Home page
+  2. `/highestRated` - Recipe with the hihest average rating
+  3. `/popular` - Most reviewed recipe
+  4. `/holiday` - Holiday themed recipes
+  5. `/quick` - Quick & Easy recipes
+  6. `/allRecipes` - All recipes
+  7. `/newest` - Newest recipe
+  8. `/addRecipe` - Adding a recipe
+  9. `/addReview/:nameOfRecip` - Page to add a review
+  10. `/reviews/:name` - All reviews for a particular recipe
 
 ### 9. Modules
   We created the following modules:
