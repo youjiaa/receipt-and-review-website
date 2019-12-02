@@ -35,11 +35,16 @@ button {
 	font-weight: bold;
 }
 .nav {
-    padding: 10px;
-    background-color: teal;
+    padding: 15px;
+    background-color: #008080;
     font-weight: bold;
     color: white;
 }
+
+.nav:hover{
+    background-color: rgba(0, 128, 128, 0.5);
+}
+
 img {
     height: 100px;
     width: 110px;

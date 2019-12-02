@@ -24,5 +24,8 @@
         "mongoose": "^5.7.12",
         "morgan": "^1.8.1",
         "request": "^2.88.0"
+    },
+    "devDependencies": {
+        "less": "^3.10.3"
     }
 }

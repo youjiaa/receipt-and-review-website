@@ -133,7 +133,7 @@ Navigation Filters
 ### 10. NPM Packages
   We used the following new npm packages
   1. draggable.js
-  2. react.js
+  2. less.js
 
 ### 11. User Interface
   1. The user interface has been updated to improve the user experience

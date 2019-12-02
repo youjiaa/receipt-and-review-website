@@ -35,7 +35,7 @@
     ii. review.js
 ## 6. NPM Packages
     i. draggable.js (Wilson)
-    ii. react.js (Theo-might change - TBD)
+    ii. less.js (Theo)
 ## 7. CSS/Appearance (Theo)
 
 ## 8. Heroku (Theo)
