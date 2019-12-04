@@ -35,10 +35,10 @@
     ii. review.js
 ## 6. NPM Packages
     i. draggable.js (Wilson)
-    ii. less.js (Theo)
-## 7. CSS/Appearance (Theo)
+    ii. less.js (Theo) - Done
+## 7. CSS/Appearance (Theo) - Done
 
 ## 8. Heroku (Theo)
     i. Theo will take care of this once everything's done
 ## 9. README (Theo)
-    i. See READMEUser.md
+    i. See READMEUser.md - Done
