@@ -18,6 +18,9 @@
     i. Recipes
     ii. Reviews
     iii. Ingredients
+    iv. Cooking Time
+    v. Prep Time
+    etc... (Done)
 ## 2. Live Updates (Wilson)
     i. Automatically add recipes to page without refresh
     ii. Notifcations to inform users when a new recipe is added
