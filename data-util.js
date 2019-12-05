@@ -40,10 +40,7 @@ function getPopular(data) {
 module.exports = {
     loadData: loadData,
     saveData: saveData,
-    getHighestRated: getHighestRated,
     getRandom: getRandom,
     getRecentlyAdded: getRecentlyAdded,
-    getHoliday: getHoliday,
-    getQuick: getQuick,
     getPopular: getPopular
 }
