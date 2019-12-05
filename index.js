@@ -67,8 +67,7 @@ app.post('/recipe', function (req, res) {
   });
 });
 
-// Currently, the addRecipe posts to JSON, modify
-// to post to MongoDB
+
 app.post('/addRecipe', function (req, res) {
   var body = req.body;
   var ingredientPassedIn = body.ingredients.split(",");
@@ -236,6 +235,8 @@ app.get('/',function(req,res){
   });
 });
 
+// All of these currently pull from data.json, update following
+// the method above to work with MongoDB
 app.get('/highestRated', function (req, res) {
   res.render('recipes', {
     data: dataUtil.getHighestRated(_DATA),
@@ -268,18 +269,30 @@ app.get('/quick', function (req, res) {
 })
 
 app.get('/allRecipes', function (req, res) {
-  res.render('recipes', {
-    data: _DATA,
-    header: "All Recipes"
+  Recipe.find({}, function(err, recipes) {
+    return res.render('recipes', {
+      header: "All Recipes",
+      data: recipes
+    });
+  //res.render('recipes', {
+  // data: _DATA,
+  //header: "All Recipes"
+  //});
   });
 })
 
 app.get('/random', function (req, res) {
-  res.render('recipes', {
-    data: dataUtil.getRandom(_DATA),
-    header: "Random Recipe"
-  })
-})
+  Recipe.find({}, function(err, recipes) {
+    return res.render('recipes', {
+      header: "Random Recipe",
+      data: dataUtil.getRandom(recipes)
+    });
+  //res.render('recipes', {
+    //data: dataUtil.getRandom(_DATA),
+    //header: "Random Recipe"
+ // })
+  });
+});
 
 app.get('/newest', function (req, res) {
   res.render('recipes', {
