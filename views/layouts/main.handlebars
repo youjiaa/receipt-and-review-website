@@ -78,6 +78,11 @@
     });
 
     socket.on('new recipe', function(rec){
+      $('#notification').css("background-color", "rgb(51, 255, 214)");
+      let link = 'A new recipe was added! Check out ' + rec.name + ' at the top! Click me to remove me.';
+      $('#notification').html(link);
+
+
       let ele = '<article class="recipeHome"> <i>Posted ' + rec.timePosted + '</i> <h3 class="recipeName"><a href="/addreview/' + rec.name + '">';
       ele += rec.name + '</a></h3> <div>';
       if (rec.holiday) {
@@ -111,8 +116,13 @@
       ele += '<a href="/reviews/' + rec.name + '">See Recipe Reviews</a> <br> <a href="/removeRecipe/' + rec.name + '">Remove Recipe</a>';
       ele += '</div> </article>';
       $('#hereRecipes').prepend(ele);
-    })
+    });
 
+    socket.on('deleted recipe', function(name) {
+      $('#notification').css("background-color", "rgb(255, 26, 26)");
+      let link = 'A recipe was removed!';
+      $('#notification').html(link);
+    })
   </script>
 </body>
 

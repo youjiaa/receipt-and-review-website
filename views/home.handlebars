@@ -2,7 +2,7 @@
 <html>
 <article id="homePage">
     <h2>{{header}}</h2>
-    <p>{{content}}</p>
+    <p>{{content}}   <span id="notification"></span></p>
 
     <body onload="onStart()">
         <form>
@@ -50,6 +50,7 @@
             {{!Here, make the data from the listing look nice in a presentatble format}}
             <a href="/reviews/{{this.recipeName}}">See Recipe Reviews</a>
             <br>
+            <form method= action="/removeRecipe/{{this.recipeName}}"></form>
             <a href="/removeRecipe/{{this.recipeName}}">Remove Recipe</a> {{!currently a broken link}}
         </div>
     </article>
@@ -93,7 +94,11 @@
         if (!somethingDisp) {
             unhide.style.display = "";
         }
-    }    
+    }
+    $('#notification').click(function() {
+        $('#notification').css("background-color", "white");
+        $('#notification').html("");
+    })
 </script>
 
 </html>

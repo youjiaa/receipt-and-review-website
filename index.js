@@ -189,8 +189,8 @@ app.delete('/removeRecipe', (req, res) => {
     name: req.query.name
   })
     .then(doc => {
-      io.emit("deleted recipe", name);
-      res.json(doc)
+      io.emit("deleted recipe", req.query.name);
+      res.json(doc);
     })
     .catch(err => {
       res.status(500).json(err)
