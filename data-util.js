@@ -30,6 +30,13 @@ function getRecentlyAdded(data) {
     return recent;
 }
 
+function getPopular(data) {
+    var recent = [];
+    if (data.reviews.length > 2)
+        recent.push(data[data.length - 1]);
+    return recent;
+}
+
 module.exports = {
     loadData: loadData,
     saveData: saveData,

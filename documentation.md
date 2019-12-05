@@ -35,6 +35,16 @@ Schema:
 {"name":"Butterscotch Cookies","ingredients":["Sugar"," Caramel"," 2 Eggs"," Three cups flour"],"prepTime":"23","cookTime":"45","directions":["Mix sugar and caramel together"," Beat in Eggs"," Add flour"," Bake for 35 minutes in 450 degree oven"],"timePosted":"November 30th 2019, 8:08 pm","holiday":true,"quick":false,"reviews":[["4","So Easy to make!"],["5","Great!"],["4","Awesome!"],["5","Yum"],["2","Meh"]],"rating":"4.0"}
 ```
 
+Datapoint fields for reviews:
+- `name`: Name of teview `Type: String`
+- `rating`: Numerical evaluation of the review `Type: Number`
+- `reviewBody` : text body of review `Type: String`
+
+Schema: 
+```javascript
+{"name":"Butterscotch Cookies Review","rating":"4.0", "reviewBody":"Great recipe! Easy to make."}
+```
+
 ### 2. Add New Data
 
 HTML form route: `/addrecipe` and `/addreview/:recipeName`

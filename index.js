@@ -133,6 +133,7 @@ app.post('/addReview/:name', function (req, res) {
   var body = req.body;
   //A review consists of a two element array: arr[0] is the rating, arr[1] is the review content
   var review = []
+  review.push(body.reviewName);
   review.push(body.rating);
   review.push(body.reviewContent);
   reviewOperations.addReview(_DATA, nameOf, review);
@@ -148,40 +149,46 @@ app.post('/addReview/:name', function (req, res) {
   res.redirect("/");
 })
 
-// TODO: Edit to access MongoDB
 app.get('/api/random', function (req, res) {
-  res.send(dataUtil.getRandom(_DATA));
-})
-
-// TODO: Edit to access MongoDB
-app.get('/api/highestRated', function (req, res) {
-  res.send(dataUtil.getHighestRated(_DATA));
-})
-
-// TODO: Edit to access MongoDB
-//most reviewed
-app.get('/api/popular', function (req, res) {
-  res.send(dataUtil.getPopular(_DATA));
-})
-
-// TODO: Edit to access MongoDB
-app.get('/api/newest', function (req, res) {
-  res.send(_DATA[_DATA.length - 1]);
-})
-
-// TODO: Edit to access MongoDB
-//not done with util func
-app.get('/api/holiday', function (req, res) {
-  Review.find({ holiday: true }, function (err, songs) {
+  Review.find({}, function (err, songs) {
+    var review = dataUtil.getRandom(songs)
     if (err) throw err;
     res.json(review);
   });
 })
 
-// TODO: Edit to access MongoDB
-//not done with util func
+app.get('/api/highestRated', function (req, res) {
+  Review.find({ rating: 5 }, function (err, review) {
+    if (err) throw err;
+    res.json(review);
+  });
+})
+
+app.get('/api/popular', function (req, res) {
+  Review.find({}, function (err, songs) {
+    var review = dataUtil.getPopular(songs)
+    if (err) throw err;
+    res.json(review);
+  });
+})
+
+app.get('/api/newest', function (req, res) {
+  Review.find({}, function (err, songs) {
+    var review = dataUtil.getRecentlyAdded(songs)
+    if (err) throw err;
+    res.json(review);
+  });
+})
+
+app.get('/api/holiday', function (req, res) {
+  Review.find({ holiday: true }, function (err, review) {
+    if (err) throw err;
+    res.json(review);
+  });
+})
+
 app.get('/api/quick', function (req, res) {
-  Review.find({ quick: true }, function (err, songs) {
+  Review.find({ quick: true }, function (err, review) {
     if (err) throw err;
     res.json(review);
   });
@@ -248,20 +255,23 @@ app.get('/', function (req, res) {
 // the method above to work with MongoDB
 app.get('/highestRated', function (req, res) {
   Recipe.find({ rating: 5 }, function (err, con) {
-    res.render('recipes', { data: con })
+    return res.render('recipes', { data: con })
   })
 })
 
 // TODO: Edit to access MongoDB
 app.get('/popular', function (req, res) {
-  Recipe.find({ reviews: 5 }, function (err, con) {
-    res.render('recipes', { data: con })
-  })
+  Recipe.find({}, function (err, recipes) {
+    return res.render('recipes', {
+      header: "Random Recipe",
+      data: dataUtil.getPopular(recipes)
+    });
+  });
 })
 
 app.get('/holiday', function (req, res) {
   Recipe.find({ holiday: true }, function (err, con) {
-    res.render('recipes', {
+    return res.render('recipes', {
       data: con,
       header: "Holiday Recipes"
     });
