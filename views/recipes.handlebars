@@ -5,7 +5,7 @@
 {{#each data}}
 <article class="entirerecipe">
     <i>Posted {{time}}</i>
-    <h3 class="recipeName"><a href="/addreview/{{this.recipeName}}">{{this.recipeName}}</a></h3> 
+    <h3 class="recipeName"><a href="/addreview/{{this.name}}">{{this.name}}</a></h3> 
     <div>
         {{#if this.holiday}}
             <img src="https://i.pinimg.com/originals/bd/5b/7d/bd5b7d0be7dfbfc70b7e0b2efdff83b1.jpg" id = "holidayRecip">
@@ -36,9 +36,9 @@
         </ol>
         <br>
         {{!Here, make the data from the listing look nice in a presentatble format}}
-        <a href="/reviews/{{this.recipeName}}">See Recipe Reviews</a>
+        <a href="/reviews/{{this.name}}">See Recipe Reviews</a>
         <br>
-        <a href="/removeRecipe/{{this.recipeName}}">Remove Recipe</a> {{!currently a broken link}}
+        <a href="/removeRecipe/{{this.name}}">Remove Recipe</a> {{!currently a broken link}}
     </div>
 </article>
 
