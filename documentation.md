@@ -103,7 +103,7 @@ Navigation Filters
 
 ### 6. Live Updates
 1. Automatically adds recipes to page without refresh (adds to the top of the home page listing)
-2. Notifcations are present to inform users when a new recipe is added (blue box pops up on home page)
+2. Notifcations are present to inform other users on other pages when a new recipe is added (blue box pops up on home page) or when recipes are deleted (red box pops up on homepage)
 
 ### 7. Viewing/Adding Data
   Handlebars.js pages:

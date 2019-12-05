@@ -332,15 +332,27 @@ app.get('/addReview/:nameOfRecip', function (req, res) {
   })
 })
 
-// TODO
 app.get('/removeRecipe/:name', function(req, res) {
-  var name = req.params.name;
-  // do something to delete recipe
-  res.redirect('/');
+  var nameIn = req.params.name;
+  if (!nameIn) {
+    return res.status(400).send('Missing query parameter: recipe name')
+  }
+
+  Recipe.findOneAndRemove({
+    name: nameIn
+  })
+    .then(doc => {
+      io.emit("deleted recipe", nameIn);
+      res.json(doc);
+    })
+    .catch(err => {
+      res.status(500).json(err)
+    })
+    res.redirect('back');
 })
 
 // TODO
-app.get('/removeReview', function(req, res) {
+app.get('/removeReview/:recipe/:name', function(req, res) {
   // do something to delete review
 })
 
