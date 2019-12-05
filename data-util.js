@@ -23,32 +23,12 @@ function getRandom(data) {
     return random;
 }
 
-// Modify to filter data
-function getHoliday(data) {
-    return data;
-}
-
-function getQuick(data) {
-    return data;
-}
-
-function getPopular(data) {
-    return data;
-
-}
-
-function getHighestRated(data) {
-    return data;
-    //var
-}
-
 function getRecentlyAdded(data) {
     var recent = [];
     if (data.length > 0)
         recent.push(data[data.length - 1]);
     return recent;
 }
-
 
 module.exports = {
     loadData: loadData,

@@ -71,21 +71,21 @@ app.post('/recipe', function (req, res) {
 app.post('/addRecipe', function (req, res) {
   var body = req.body;
   var ingredientPassedIn = body.ingredients.split(",");
-  var filteredIngredients = ingredientPassedIn.filter(function(value, index, directs){
-    return value != "" && value !=" ";
+  var filteredIngredients = ingredientPassedIn.filter(function (value, index, directs) {
+    return value != "" && value != " ";
   });
   body.ingredients = filteredIngredients;
   let finalIngredients = [];
   filteredIngredients.forEach(element => {
-    finalIngredients.push({name: element});
+    finalIngredients.push({ name: element });
   });
   var directs = body.directions.split(";");
-  var filteredDirects = directs.filter(function(value, index, directs){
-    return value != "" && value !=" ";
+  var filteredDirects = directs.filter(function (value, index, directs) {
+    return value != "" && value != " ";
   });
   body.directions = filteredDirects;
   body.time = moment().format('MMMM Do YYYY, h:mm a');
-  if (!body.special){ //body.special DNE
+  if (!body.special) { //body.special DNE
     body.holiday = false;
     body.quick = false;
   }
@@ -120,15 +120,15 @@ app.post('/addRecipe', function (req, res) {
   })
   // _DATA.push(req.body);
   // dataUtil.saveData(_DATA);
-  rec.save(function(err){
-    if(err) throw err;
+  rec.save(function (err) {
+    if (err) throw err;
     io.emit('new recipe', rec);
   })
   res.redirect("/");
 })
 
 // TODO: Add review currently posts to data.json, revise so it posts to MongoDB
-app.post('/addReview/:name', function(req, res) {
+app.post('/addReview/:name', function (req, res) {
   var nameOf = req.params.name;
   var body = req.body;
   //A review consists of a two element array: arr[0] is the rating, arr[1] is the review content
@@ -139,6 +139,12 @@ app.post('/addReview/:name', function(req, res) {
   dataUtil.saveData(_DATA);
   recipeOperations.updateScore(_DATA, nameOf);
   dataUtil.saveData(_DATA);
+
+  review.save(function (err) {
+    if (err) throw err;
+    res.send('your review was successfully added!');
+  })
+
   res.redirect("/");
 })
 
@@ -166,28 +172,23 @@ app.get('/api/newest', function (req, res) {
 // TODO: Edit to access MongoDB
 //not done with util func
 app.get('/api/holiday', function (req, res) {
-  res.send(dataUtil.getHoliday(_DATA));
+  Review.find({ holiday: true }, function (err, songs) {
+    if (err) throw err;
+    res.json(review);
+  });
 })
 
 // TODO: Edit to access MongoDB
 //not done with util func
 app.get('/api/quick', function (req, res) {
-  res.send(dataUtil.getQuick(_DATA));
-})
-
-// TODO: Edit to access MongoDB
-//post to api endpoint
-app.post('/api/addRecipe', function (req, res) {
-
-})
-
-// TODO: Edit to access MongoDB
-app.post('/api/addReview', function (req, res) {
-
+  Review.find({ quick: true }, function (err, songs) {
+    if (err) throw err;
+    res.json(review);
+  });
 })
 
 //delete a recipe
-app.delete('/removeRecipe', (req, res) => {
+app.delete('/removeRecipe/:name', (req, res) => {
   if (!req.query.name) {
     return res.status(400).send('Missing query parameter: recipe name')
   }
@@ -204,27 +205,22 @@ app.delete('/removeRecipe', (req, res) => {
     })
 })
 
-// TODO
-app.delete('/removeReview', function(req, res) {
+app.delete('/removeReview', function (req, res) {
+  if (!req.query.name) {
+    return res.status(400).send('Missing query parameter: recipe name')
+  }
 
+  Review.findOneAndRemove({
+    name: req.query.name
+  })
+    .then(doc => {
+      io.emit("deleted review", req.query.name);
+      res.json(doc);
+    })
+    .catch(err => {
+      res.status(500).json(err)
+    })
 })
-
-// app.post('/api/addlisting', function (req, res) {
-//   var body = req.body;
-//   body.features = [];
-//   if (body['features[0]']) {
-//     var i = 0;
-//     while (body["features[" + i + "]"]) {
-//       body.features.push(body["features[" + i + "]"]);
-//       delete body["features[" + i + "]"];
-//       i++;
-//     }
-//   }
-//   _DATA.push(body);
-//   dataUtil.saveData(_DATA);
-//   res.redirect("/");
-// })
-
 
 // Note by Theo:
 // These are the endpoints that I used to get all of the different listings
@@ -238,8 +234,8 @@ app.delete('/removeReview', function(req, res) {
 
 //post in html form 
 
-app.get('/',function(req,res){
-  Recipe.find({}, function(err, recipes) {
+app.get('/', function (req, res) {
+  Recipe.find({}, function (err, recipes) {
     return res.render('home', {
       header: "Home",
       content: "Welcome to UMD Recipes",
@@ -248,78 +244,63 @@ app.get('/',function(req,res){
   });
 });
 
-// All of these currently pull from data.json, update following
+//  TODO: All of these currently pull from data.json, update following
 // the method above to work with MongoDB
 app.get('/highestRated', function (req, res) {
-  res.render('recipes', {
-    data: dataUtil.getHighestRated(_DATA),
-    content: "Our highest rated recipe",
-    header: "Highest Rated Recipe"
+  Recipe.find({ rating: 5 }, function (err, con) {
+    res.render('recipes', { data: con })
   })
 })
 
 // TODO: Edit to access MongoDB
-//most reviewed
 app.get('/popular', function (req, res) {
-  res.render('recipes', {
-    data: dataUtil.getPopular(_DATA),
-    content: "Our most reviewed recipe",
-    header: "Most Popular Recipe"
+  Recipe.find({ reviews: 5 }, function (err, con) {
+    res.render('recipes', { data: con })
   })
 })
 
-// TODO: Edit to access MongoDB
 app.get('/holiday', function (req, res) {
-  res.render('recipes', {
-    data: dataUtil.getHoliday(_DATA),
-    header: "Holiday Recipes"
+  Recipe.find({ holiday: true }, function (err, con) {
+    res.render('recipes', {
+      data: con,
+      header: "Holiday Recipes"
+    });
   });
 })
 
-// TODO: Edit to access MongoDB
 app.get('/quick', function (req, res) {
-  res.render('recipes', {
-    data: dataUtil.getQuick(_DATA),
-    header: "Quick & Easy Recipes"
+  Recipe.find({ quick: true }, function (err, con) {
+    return res.render('recipes', { data: con });
   });
 })
 
 app.get('/allRecipes', function (req, res) {
-  Recipe.find({}, function(err, recipes) {
+  Recipe.find({}, function (err, recipes) {
     return res.render('recipes', {
       header: "All Recipes",
       data: recipes
     });
-  //res.render('recipes', {
-  // data: _DATA,
-  //header: "All Recipes"
-  //});
   });
 })
 
 app.get('/random', function (req, res) {
-  Recipe.find({}, function(err, recipes) {
+  Recipe.find({}, function (err, recipes) {
     return res.render('recipes', {
       header: "Random Recipe",
       data: dataUtil.getRandom(recipes)
     });
-  //res.render('recipes', {
-    //data: dataUtil.getRandom(_DATA),
-    //header: "Random Recipe"
- // })
   });
 });
 
-// TODO: Edit to access MongoDB
 app.get('/newest', function (req, res) {
-  res.render('recipes', {
-    data: dataUtil.getRecentlyAdded(_DATA),
-    content: "Our newest recipe!",
-    header: "Newest Recipe"
-  })
+  Recipe.find({}, function (err, recipes) {
+    return res.render('recipes', {
+      header: "Newest Recipe",
+      data: dataUtil.getRecentlyAdded(recipes)
+    });
+  });
 })
 
-// TODO: Edit to access MongoDB
 app.get('/addRecipe', function (req, res) {
   res.render('addrecipe', {})
 })
@@ -331,28 +312,18 @@ app.get('/addReview/:nameOfRecip', function (req, res) {
   })
 })
 
-// TODO
-app.get('/removeRecipe/:name', function(req, res) {
-  var name = req.params.name;
-  // do something to delete recipe
-  res.redirect('/');
-})
-
-// TODO
-app.get('/removeReview', function(req, res) {
-  // do something to delete review
-})
-
-// TODO: Edit to access MongoDB
-app.get('/reviews/:name', function (req, res) {
-  var name = req.params.name;
-  var recip = recipeOperations.getRecipeByName(_DATA, name);
-  var reviews = recipeOperations.getReviews(recip);
-  res.render('reviews', {
-    data: reviews,
-    nameRecip: name 
-  })
-})
+//It redirects to the page that displays the reviews for a recipe. 
+//It can be removed if we want the reviews to be on the same page as the recipe itself
+// // TODO: Edit to access MongoDB
+// app.get('/reviews/:name', function (req, res) {
+//   var name = req.params.name;
+//   var recip = recipeOperations.getRecipeByName(_DATA, name);
+//   var reviews = recipeOperations.getReviews(recip);
+//   res.render('reviews', {
+//     data: reviews,
+//     nameRecip: name
+//   })
+// })
 
 app.get('/description', function (req, res) {
   res.render('description', {})
