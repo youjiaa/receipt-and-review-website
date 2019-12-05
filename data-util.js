@@ -23,25 +23,6 @@ function getRandom(data) {
     return random;
 }
 
-// Modify to filter data
-function getHoliday(data) {
-    return data;
-}
-
-function getQuick(data) {
-    return data;
-}
-
-function getPopular(data) {
-    return data;
-
-}
-
-function getHighestRated(data) {
-    return data;
-    //var
-}
-
 function getRecentlyAdded(data) {
     var recent = [];
     if (data.length > 0)
@@ -49,14 +30,17 @@ function getRecentlyAdded(data) {
     return recent;
 }
 
+function getPopular(data) {
+    var recent = [];
+    if (data.reviews.length > 2)
+        recent.push(data[data.length - 1]);
+    return recent;
+}
 
 module.exports = {
     loadData: loadData,
     saveData: saveData,
-    getHighestRated: getHighestRated,
     getRandom: getRandom,
     getRecentlyAdded: getRecentlyAdded,
-    getHoliday: getHoliday,
-    getQuick: getQuick,
     getPopular: getPopular
 }
