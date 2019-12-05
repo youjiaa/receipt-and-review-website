@@ -133,6 +133,7 @@ app.post('/addReview/:name', function(req, res) {
   var body = req.body;
   //A review consists of a two element array: arr[0] is the rating, arr[1] is the review content
   var review = []
+  review.push(body.reviewName);
   review.push(body.rating);
   review.push(body.reviewContent);
   reviewOperations.addReview(_DATA, nameOf, review);

@@ -22,8 +22,9 @@ function getReviews(recipe) {
     var fin = []
     for (var i = 0; i < recipe.reviews.length; i++) {
         var dict = {
-            "rating" : recipe.reviews[i][0],
-            "reviewBody" : recipe.reviews[i][1]
+            "name" : recipe.reviews[i][0],
+            "rating" : recipe.reviews[i][1],
+            "reviewBody" : recipe.reviews[i][2]
         }
         fin.push(dict);
     }
