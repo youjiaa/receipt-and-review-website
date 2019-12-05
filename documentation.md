@@ -9,8 +9,9 @@ Date: 06 December 2019
 
 Project Topic: Recipe sharing and rating website
 
-URL: http://evening-wildwood-72242.herokuapp.com/ (Final)
-     https://immense-eyrie-52016.herokuapp.com/ (testing purposes)
+URL: 
+1. http://umd-recipes.herokuapp.com/ (Final)
+2. http://evening-wildwood-72242.herokuapp.com/ (testing purposes)
 
 ---
 ### Midterm Specifications
@@ -31,7 +32,7 @@ Data point fields for a recipe:
 
 Schema: 
 ```javascript
-{"recipeName":"Butterscotch Cookies","ingredients":["Sugar"," Caramel"," 2 Eggs"," Three cups flour"],"prepTime":"23","cookTime":"45","special":"holidayRecipe","directions":["Mix sugar and caramel together"," Beat in Eggs"," Add flour"," Bake for 35 minutes in 450 degree oven"],"time":"November 30th 2019, 8:08 pm","holiday":true,"quick":false,"reviews":[["4","So Easy to make!"],["5","Great!"],["4","Awesome!"],["5","Yum"],["2","Meh"]],"rating":"4.0"}
+{"name":"Butterscotch Cookies","ingredients":["Sugar"," Caramel"," 2 Eggs"," Three cups flour"],"prepTime":"23","cookTime":"45","directions":["Mix sugar and caramel together"," Beat in Eggs"," Add flour"," Bake for 35 minutes in 450 degree oven"],"timePosted":"November 30th 2019, 8:08 pm","holiday":true,"quick":false,"reviews":[["4","So Easy to make!"],["5","Great!"],["4","Awesome!"],["5","Yum"],["2","Meh"]],"rating":"4.0"}
 ```
 
 ### 2. Add New Data
@@ -91,8 +92,8 @@ Navigation Filters
 ### Additional Requirements
 
 ### 6. Live Updates
-1. Automatically adds recipes to page without refresh
-2. Notifcations are present to inform users when a new recipe is added
+1. Automatically adds recipes to page without refresh (adds to the top of the home page listing)
+2. Notifcations are present to inform users when a new recipe is added (blue box pops up on home page)
 
 ### 7. Viewing/Adding Data
   Handlebars.js pages:
@@ -113,7 +114,8 @@ Navigation Filters
   2. `/addRecipe`
 
   Delete Endpoints
-
+  1. `/removeRecipe/:name`
+  2. `/removeReview`
   Additional/Get Endpoints
   1. `/` - Home page
   2. `/highestRated` - Recipe with the hihest average rating
@@ -140,7 +142,7 @@ Navigation Filters
   1. The user interface has been updated to improve the user experience
 
 ### 12. Deployment
-  The website is hosted on: 
+  The website is hosted on: umd-recipes.herokuapp.com
 
 ### 13. README
   See the READMEUser.md file for more information

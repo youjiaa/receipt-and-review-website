@@ -1,10 +1,6 @@
 // This is the recipe.js file that will be used to deal with different things
 // related to a recipe
 
-// Some ideas:
-
-// 1. A function to calculate the average review score
-// 2. A function to get all the reviews related to the particular recipe
 function updateScore(data, name) {
     var someRecipe;     
     for (var i = 0; i < data.length; i++) {
@@ -39,6 +35,7 @@ function getRecipeByName(data, name) {
             return data[i];
     }
 }
+
 module.exports = {
     updateScore: updateScore,
     getRecipeByName: getRecipeByName,

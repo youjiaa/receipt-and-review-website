@@ -127,7 +127,7 @@ app.post('/addRecipe', function (req, res) {
   res.redirect("/");
 })
 
-// Add review currently posts to data.json, revise so it posts to MongoDB
+// TODO: Add review currently posts to data.json, revise so it posts to MongoDB
 app.post('/addReview/:name', function(req, res) {
   var nameOf = req.params.name;
   var body = req.body;
@@ -142,38 +142,46 @@ app.post('/addReview/:name', function(req, res) {
   res.redirect("/");
 })
 
+// TODO: Edit to access MongoDB
 app.get('/api/random', function (req, res) {
   res.send(dataUtil.getRandom(_DATA));
 })
 
+// TODO: Edit to access MongoDB
 app.get('/api/highestRated', function (req, res) {
   res.send(dataUtil.getHighestRated(_DATA));
 })
 
+// TODO: Edit to access MongoDB
 //most reviewed
 app.get('/api/popular', function (req, res) {
   res.send(dataUtil.getPopular(_DATA));
 })
 
+// TODO: Edit to access MongoDB
 app.get('/api/newest', function (req, res) {
   res.send(_DATA[_DATA.length - 1]);
 })
 
+// TODO: Edit to access MongoDB
 //not done with util func
 app.get('/api/holiday', function (req, res) {
   res.send(dataUtil.getHoliday(_DATA));
 })
 
+// TODO: Edit to access MongoDB
 //not done with util func
 app.get('/api/quick', function (req, res) {
   res.send(dataUtil.getQuick(_DATA));
 })
 
+// TODO: Edit to access MongoDB
 //post to api endpoint
 app.post('/api/addRecipe', function (req, res) {
 
 })
 
+// TODO: Edit to access MongoDB
 app.post('/api/addReview', function (req, res) {
 
 })
@@ -194,6 +202,11 @@ app.delete('/removeRecipe', (req, res) => {
     .catch(err => {
       res.status(500).json(err)
     })
+})
+
+// TODO
+app.delete('/removeReview', function(req, res) {
+
 })
 
 // app.post('/api/addlisting', function (req, res) {
@@ -245,6 +258,7 @@ app.get('/highestRated', function (req, res) {
   })
 })
 
+// TODO: Edit to access MongoDB
 //most reviewed
 app.get('/popular', function (req, res) {
   res.render('recipes', {
@@ -254,6 +268,7 @@ app.get('/popular', function (req, res) {
   })
 })
 
+// TODO: Edit to access MongoDB
 app.get('/holiday', function (req, res) {
   res.render('recipes', {
     data: dataUtil.getHoliday(_DATA),
@@ -261,6 +276,7 @@ app.get('/holiday', function (req, res) {
   });
 })
 
+// TODO: Edit to access MongoDB
 app.get('/quick', function (req, res) {
   res.render('recipes', {
     data: dataUtil.getQuick(_DATA),
@@ -294,6 +310,7 @@ app.get('/random', function (req, res) {
   });
 });
 
+// TODO: Edit to access MongoDB
 app.get('/newest', function (req, res) {
   res.render('recipes', {
     data: dataUtil.getRecentlyAdded(_DATA),
@@ -302,6 +319,7 @@ app.get('/newest', function (req, res) {
   })
 })
 
+// TODO: Edit to access MongoDB
 app.get('/addRecipe', function (req, res) {
   res.render('addrecipe', {})
 })
@@ -313,6 +331,19 @@ app.get('/addReview/:nameOfRecip', function (req, res) {
   })
 })
 
+// TODO
+app.get('/removeRecipe/:name', function(req, res) {
+  var name = req.params.name;
+  // do something to delete recipe
+  res.redirect('/');
+})
+
+// TODO
+app.get('/removeReview', function(req, res) {
+  // do something to delete review
+})
+
+// TODO: Edit to access MongoDB
 app.get('/reviews/:name', function (req, res) {
   var name = req.params.name;
   var recip = recipeOperations.getRecipeByName(_DATA, name);
