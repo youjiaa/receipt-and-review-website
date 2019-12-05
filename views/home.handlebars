@@ -1,66 +1,71 @@
 <!DOCTYPE html>
 <html>
-<article id = "homePage">
-<h2>{{header}}</h2>
-<p>{{content}}</p>
-<body onload="onStart()">
-<form> 
-Search by Recipe Name: <input type="text" placeholder="Search for Recipe" id = "recipeSearch" name="search" size="50" onkeyup="recipechecker()" autofocus>
-</form>
-</body>
-</article>
-{{#each data}}
-<article class="recipeHome">
+<article id="homePage">
+    <h2>{{header}}</h2>
+    <p>{{content}}</p>
 
-<i>Posted {{time}}</i>
-    <h3 class="recipeName"><a href="/addreview/{{this.recipeName}}">{{this.recipeName}}</a></h3> 
-    <div>
-        {{#if this.holiday}}
-            <img src="https://i.pinimg.com/originals/bd/5b/7d/bd5b7d0be7dfbfc70b7e0b2efdff83b1.jpg" id = "holidayRecip">
-        {{/if}}
-        
-        {{#if this.quick}}
-            <img src="https://www.jing.fm/clipimg/detail/161-1611705_instant-feedback-quick-and-easy-icon.png" id = "quick">
-        {{/if}}        
-        <br>
-        Average Review Rating: {{this.rating}} <br>
-        Prep Time: {{this.prepTime}} Minutes <br>
-        Cook Time: {{this.cookTime}} Minutes <br>
-        Ingredients <br>
-        <ul>
-            {{#each this.ingredients}}
-            <li>{{this}}</li>
-            {{else}}
-            There doesn't appear to be any ingredients for this recipe. Frugal!
-            {{/each}}
-        </ul>
-        Directions <br>
-        <ol>
-            {{#each this.directions}}
-            <li>{{this}}</li>
-            {{else}}
-            You don't need to follow any directions for this recipe. Yay!
-            {{/each}}
-        </ol>
-        <br>
-        {{!Here, make the data from the listing look nice in a presentatble format}}
-        <a href="/reviews/{{this.recipeName}}">See Recipe Reviews</a>
-        <br>
-        <a href="/removeRecipe/{{this.recipeName}}">Remove Recipe</a> {{!currently a broken link}}
-    </div>
+    <body onload="onStart()">
+        <form>
+            Search by Recipe Name: <input type="text" placeholder="Search for Recipe" id="recipeSearch" name="search"
+                size="50" onkeyup="recipechecker()" autofocus>
+        </form>
+    </body>
 </article>
+<div id="hereRecipes">
+    {{#each data}}
+    <article class="recipeHome">
 
-{{else}}
+        <i>Posted {{this.timePosted}}</i>
+        <h3 class="recipeName"><a href="/addreview/{{this.recipeName}}">{{this.recipeName}}</a></h3>
+        <div>
+            {{#if this.holiday}}
+            <img src="https://i.pinimg.com/originals/bd/5b/7d/bd5b7d0be7dfbfc70b7e0b2efdff83b1.jpg" id="holidayRecip">
+            {{/if}}
 
-<article>
-    <h3>No recipes have been added yet</h3>
-    <a href="/addRecipe">Be the first to add a recipe</a>
-</article>
+            {{#if this.quick}}
+            <img src="https://www.jing.fm/clipimg/detail/161-1611705_instant-feedback-quick-and-easy-icon.png"
+                id="quick">
+            {{/if}}
+            <br>
+            Average Review Rating: {{this.rating}} <br>
+            Prep Time: {{this.prepTime}} Minutes <br>
+            Cook Time: {{this.cookTime}} Minutes <br>
+            Ingredients <br>
+            <ul>
+                {{#each this.ingredients}}
+                <li>{{this.name}}</li>
+                {{else}}
+                There doesn't appear to be any ingredients for this recipe. Frugal!
+                {{/each}}
+            </ul>
+            Directions <br>
+            <ol>
+                {{#each this.directions}}
+                <li>{{this}}</li>
+                {{else}}
+                You don't need to follow any directions for this recipe. Yay!
+                {{/each}}
+            </ol>
+            <br>
+            {{!Here, make the data from the listing look nice in a presentatble format}}
+            <a href="/reviews/{{this.recipeName}}">See Recipe Reviews</a>
+            <br>
+            <a href="/removeRecipe/{{this.recipeName}}">Remove Recipe</a> {{!currently a broken link}}
+        </div>
+    </article>
+
+    {{else}}
+
+    <article>
+        <h3>No recipes have been added yet</h3>
+        <a href="/addRecipe">Be the first to add a recipe</a>
+    </article>
+</div>
 {{/each}}
-<article id = "nothingmatches">
+<article id="nothingmatches">
     <h2>No recipes match your search</h2>
 </article>
-<article id = "footer"><a href="/description">About this Website</a></article>
+<article id="footer"><a href="/description">About this Website</a></article>
 </body>
 <script type="text/javascript">
     function onStart() {
@@ -79,7 +84,7 @@ Search by Recipe Name: <input type="text" placeholder="Search for Recipe" id = "
                 var itsRecip = (recipeHome[k].getElementsByClassName("recipeName")[0].textContent).toLowerCase();
                 if (recipeName == itsRecip || itsRecip.startsWith(recipeName)) {
                     recipeHome[k].style.display = "";
-                    somethingDisp =true;
+                    somethingDisp = true;
                 }
                 else
                     recipeHome[k].style.display = "none";
@@ -90,4 +95,5 @@ Search by Recipe Name: <input type="text" placeholder="Search for Recipe" id = "
         }
     }    
 </script>
+
 </html>

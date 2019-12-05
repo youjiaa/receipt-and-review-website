@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css">
   <link rel="stylesheet" type="text/css" href="/public/css/main.css">
   <title>Final Project</title>
-  <h1 id = "title">UMD Recipes</h1>
+  <h1 id="title">UMD Recipes</h1>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
 </head>
 <div>
@@ -28,6 +28,91 @@
 
 <body>
   {{{body}}}
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    
+    var socket = io();
+
+    $('#recipes').submit(function() { //When "post" button is pressed
+      var name = $('#recipeName').val();
+      var ingredientPassedIn = $('#ingredients').val().split(",");
+      var filteredIngredients = ingredientPassedIn.filter(function (value, index, directs) {
+        return value != "" && value != " ";
+      });
+      let finalIngredients = [];
+      filteredIngredients.forEach(element => {
+        finalIngredients.push({ name: element });
+      });
+      var ingredients = finalIngredients;
+      var rating = 0;
+      var prepTime = $('#prepTime').val();
+      var cookingTime = $('#cookTime').val();
+      var directs = $('#directions').val().split(";");
+      var filteredDirects = directs.filter(function (value, index, directs) {
+        return value != "" && value != " ";
+      });
+      var directions = filteredDirects;
+      var time = moment().format('MMMM Do YYYY, h:mm a');
+      var quick = $('quick').checked;
+      var holiday = $('holiday').checked;
+      $.ajax({
+        type: "POST",
+        url: '/addRecipe',
+        data: {
+          name: name,
+          ingredients: ingredients,
+          rating: 0,
+          prepTime: prepTime,
+          cookTime: cookTime,
+          directions: direction,
+          holiday: holiday,
+          quick: quick,
+          timePosted: time,
+          reviews: []
+        },
+        success: function (data, status) {
+          console.log(data);
+        }
+      });
+      return false; //Ensures the page does not reload
+    });
+
+    socket.on('new recipe', function(rec){
+      let ele = '<article class="recipeHome"> <i>Posted ' + rec.timePosted + '</i> <h3 class="recipeName"><a href="/addreview/' + rec.name + '">' + rec.name + '</a></h3> <div>';
+      if (rec.holiday) {
+        ele += '<img src="https://i.pinimg.com/originals/bd/5b/7d/bd5b7d0be7dfbfc70b7e0b2efdff83b1.jpg" id = "holidayRecip">';
+      }
+      if (rec.quick) {
+        ele += '<img src="https://www.jing.fm/clipimg/detail/161-1611705_instant-feedback-quick-and-easy-icon.png" id = "quick">';
+      }
+      ele += '<br> Average Review Rating: ' + rec.rating + ' <br>';
+      ele += 'Prep Time: ' + rec.prepTime + ' Minutes <br>';
+      ele += 'Cook Time: ' + rec.cookTime + ' Minutes <br>';
+      ele += 'Ingredients <br> <ul>';
+      if (rec.ingredients.length === 0) {
+        ele += "There doesn't appear to be any ingredients for this recipe. Frugal!";
+      }
+      else {
+        rec.ingredients.forEach(element => {
+          ele += '<li>' + element.name + '</li>';
+        })
+      }
+      ele += '</ul > Directions <br> <ol>';
+      if (rec.directions.length === 0) {
+        ele += "You don't need to follow any directions for this recipe. Yay!";
+      }
+      else {
+        rec.directions.forEach(element => {
+          ele += '<li>' + element + '</li>';
+        })
+      }
+      ele += '</ol> <br>';
+      ele += '<a href="/reviews/' + rec.name + '">See Recipe Reviews</a> <br> <a href="/removeRecipe/' + rec.name + '">Remove Recipe</a>';
+      ele += '</div> </article>';
+      $('#hereRecipes').prepend(ele);
+    })
+
+  </script>
 </body>
 
 </html>

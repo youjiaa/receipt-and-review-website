@@ -1,30 +1,30 @@
 <article>
     <h2>Add Your Recipe!</h2>
-    <form method="POST" action="/addRecipe">
+    <form method="POST" action="/addRecipe" id="recipes">
         <div class="input-field">
             <label>Name of Recipe</label>
-            <input type="text" name="recipeName" size="50">
+            <input type="text" name="recipeName" id="recipeName" size="50">
         </div>
         <div class="input-field">
             <label>Ingredients (separate with commas)</label>
-            <textarea cols="50" rows="4" name = "ingredients"></textarea>
+            <textarea cols="50" rows="4" name = "ingredients" id="ingredients"></textarea>
         </div>
         <div class="input-field">
             <label>Prep Time (minutes)</label>
-            <input type="number" name="prepTime">
+            <input type="number" name="prepTime" id="prepTime">
         </div>
         <div class="input-field">
             <label>Cooking Time (minutes)</label>
-            <input type="number" name="cookTime">
+            <input type="number" name="cookTime" id ="cookTime">
         </div>
         <div class= "input-field">
             <label>Special Recipe</label>
-            <input type="checkbox" name="special" value="quickAndEasy"> Quick &amp; Easy Recipe<br>
-            <input type="checkbox" name="special" value="holidayRecipe"> Holiday Recipe <br>
+            <input type="checkbox" name="special" value="quickAndEasy" id="quick"> Quick &amp; Easy Recipe<br>
+            <input type="checkbox" name="special" value="holidayRecipe" id="holiday"> Holiday Recipe <br>
         </div>
         <div class ="input-field">
             <label>Directions (separate with semicolons)</label>
-            <textarea name="directions" cols="50" rows="4"></textarea>
+            <textarea name="directions" cols="50" rows="4" id='directions'></textarea>
         </div>
         <br>
         <button type="submit">Post Your Recipe!</button>

@@ -10,11 +10,9 @@ const ingredientSchema = new mongoose.Schema({
     amount: {
         type: Number,
         min: 0.0,
-        required: true
     },
     unit: {
         type: String,
-        required: true
     }
 })
 
@@ -46,6 +44,15 @@ const recipeSchema = new mongoose.Schema({
     directions: {
         type: [String],
         required: true
+    },
+    holiday: {
+        type:Boolean
+    },
+    quick: {
+        type:Boolean
+    },
+    timePosted: {
+        type: String
     },
     reviews: [Review.schema]
 });

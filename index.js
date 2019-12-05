@@ -8,12 +8,17 @@ var dataUtil = require("./data-util");
 var _DATA = dataUtil.loadData().recipes;
 var request = require('request');
 
+// Web socket things
+const http = require('http').Server(app);
+var io = require('socket.io')(http);
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.engine('handlebars', exphbs({ defaultLayout: 'main', partialsDir: "views/partials/" }));
 app.set('view engine', 'handlebars');
 app.use('/public', express.static('public'));
+
 
 // For importing/using the modules recipe.js and review.js
 var reviewOperations = require("./review")
@@ -71,6 +76,10 @@ app.post('/addRecipe', function (req, res) {
     return value != "" && value !=" ";
   });
   body.ingredients = filteredIngredients;
+  let finalIngredients = [];
+  filteredIngredients.forEach(element => {
+    finalIngredients.push({name: element});
+  });
   var directs = body.directions.split(";");
   var filteredDirects = directs.filter(function(value, index, directs){
     return value != "" && value !=" ";
@@ -98,8 +107,24 @@ app.post('/addRecipe', function (req, res) {
   }
   body.reviews = [];
   body.rating = 0;
-  _DATA.push(req.body);
-  dataUtil.saveData(_DATA);
+  let rec = new Recipe({
+    name: body.recipeName,
+    ingredients: finalIngredients,
+    rating: body.rating,
+    prepTime: body.prepTime,
+    cookTime: body.cookTime,
+    directions: filteredDirects,
+    holiday: body.holiday,
+    quick: body.quick,
+    timePosted: body.time,
+    reviews: []
+  })
+  // _DATA.push(req.body);
+  // dataUtil.saveData(_DATA);
+  rec.save(function(err){
+    if(err) throw err;
+    io.emit('new recipe', rec);
+  })
   res.redirect("/");
 })
 
@@ -201,12 +226,14 @@ app.delete('/removeRecipe', (req, res) => {
 //post in html form 
 
 app.get('/',function(req,res){
-  res.render('home',{
-    header: "Home",
-    content: "Welcome to UMD Recipes",
-    data: _DATA
+  Recipe.find({}, function(err, recipes) {
+    return res.render('home', {
+      header: "Home",
+      content: "Welcome to UMD Recipes",
+      data: recipes
+    });
   });
-})
+});
 
 app.get('/highestRated', function (req, res) {
   res.render('recipes', {
@@ -288,4 +315,4 @@ app.get('/description', function (req, res) {
 /* app.listen(3000, function() {
     console.log('Listening on port 3000!');
 }); */
-app.listen(process.env.PORT || 3000);
+http.listen(process.env.PORT || 3000);
