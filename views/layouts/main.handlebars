@@ -78,12 +78,13 @@
     });
 
     socket.on('new recipe', function(rec){
-      let ele = '<article class="recipeHome"> <i>Posted ' + rec.timePosted + '</i> <h3 class="recipeName"><a href="/addreview/' + rec.name + '">' + rec.name + '</a></h3> <div>';
+      let ele = '<article class="recipeHome"> <i>Posted ' + rec.timePosted + '</i> <h3 class="recipeName"><a href="/addreview/' + rec.name + '">';
+      ele += rec.name + '</a></h3> <div>';
       if (rec.holiday) {
-        ele += '<img src="https://i.pinimg.com/originals/bd/5b/7d/bd5b7d0be7dfbfc70b7e0b2efdff83b1.jpg" id = "holidayRecip">';
+        ele += '<img src="https://i.pinimg.com/originals/bd/5b/7d/bd5b7d0be7dfbfc70b7e0b2efdff83b1.jpg" id ="holidayRecip">';
       }
       if (rec.quick) {
-        ele += '<img src="https://www.jing.fm/clipimg/detail/161-1611705_instant-feedback-quick-and-easy-icon.png" id = "quick">';
+        ele += '<img src="https://www.jing.fm/clipimg/detail/161-1611705_instant-feedback-quick-and-easy-icon.png" id ="quick">';
       }
       ele += '<br> Average Review Rating: ' + rec.rating + ' <br>';
       ele += 'Prep Time: ' + rec.prepTime + ' Minutes <br>';
