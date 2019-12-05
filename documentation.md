@@ -3,13 +3,14 @@
 
 ---
 
-Name: Theodore, Youjia, Wilson
+Name: Theodore Gwo, Youjia Wang, Wilson Zheng
 
 Date: 06 December 2019
 
 Project Topic: Recipe sharing and rating website
 
-URL: 
+URL: http://evening-wildwood-72242.herokuapp.com/ (Final)
+     https://immense-eyrie-52016.herokuapp.com/ (testing purposes)
 
 ---
 ### Midterm Specifications
@@ -50,7 +51,7 @@ var options = {
         'content-type': 'application/x-www-form-urlencoded' 
     },
     form: { 
-       recipeName:"Butterscotch Cookies",
+       name:"Butterscotch Cookies",
        ingredients:["Sugar"," Caramel"," 2 Eggs"," Three cups flour"],
        prepTime:"23",
        cookTime:"45",
