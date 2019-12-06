@@ -11,7 +11,8 @@ function updateScore(data, name) {
     var reviewsArr = someRecipe.reviews;
     var val = 0;
     for (var j = 0; j < reviewsArr.length; j++) {
-        val = val + parseInt(reviewsArr[j]);
+        val = val + reviewsArr[j].rating;
+        console.log('wow')
     }
 
     someRecipe.rating = val/reviewsArr.length;

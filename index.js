@@ -333,8 +333,19 @@ app.get('/removeRecipe/:name', function (req, res) {
 })
 
 // TODO
-app.get('/removeReview/:recipe/:reviewname', function (req, res) {
+app.get('/removeReview/:recipname/:reviewname', function (req, res) {
   // do something to delete review
+  var revNm = req.params.reviewname;
+  var recipname = req.params.recipname;
+  var recip;
+  Recipe.find({}, function (err, recipes) {
+    recip = recipeOperations.getRecipeByName(recipes, recipname);
+    reviewOperations.deleteReviewByName(recip, revNm);
+  })
+
+  
+
+  res.redirect('/')
 })
 
 app.get('/reviews/:name', function (req, res) {

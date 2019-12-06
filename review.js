@@ -10,6 +10,18 @@ function addReview(data, nameIn, review) {
     }
     somerecipe.reviews.push(review);
 }
+
+function deleteReviewByName(recip, name) {
+    var reviewsArr = recip.reviews;
+    for (var j = 0; j < reviewsArr.length; j++) {
+        if (reviewsArr[j].name == name)
+            recip.reviews.splice(j,j+1);
+    }
+    recip.save(function (err) {
+        if (err) throw err;
+    })
+}
 module.exports = {
-    addReview: addReview
+    addReview: addReview,
+    deleteReviewByName: deleteReviewByName
 }
