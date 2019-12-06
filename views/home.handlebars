@@ -2,7 +2,7 @@
 <html>
 <article id="homePage">
     <h2>{{header}}</h2>
-    <p>{{content}}   <span id="notification"></span></p>
+    <p>{{content}} <span id="notification"></span></p>
 
     <body onload="onStart()">
         <form>
@@ -11,6 +11,10 @@
         </form>
     </body>
 </article>
+<ul id="sticky" class="draggable">
+    <label>Grocery List</label>
+    <li class="groceryItem">12 eggs</li>
+</ul>
 <div id="hereRecipes">
     {{#each data}}
     <article class="recipeHome">
@@ -31,9 +35,9 @@
             Prep Time: {{this.prepTime}} Minutes <br>
             Cook Time: {{this.cookTime}} Minutes <br>
             Ingredients <br>
-            <ul>
+            <ul class="draggable">
                 {{#each this.ingredients}}
-                <li>{{this.name}}</li>
+                <li class="ingredient">{{this.name}}</li>
                 {{else}}
                 There doesn't appear to be any ingredients for this recipe. Frugal!
                 {{/each}}
@@ -94,10 +98,47 @@
             unhide.style.display = "";
         }
     }
-    $('#notification').click(function() {
+    $('#notification').click(function () {
         $('#notification').css("background-color", "white");
         $('#notification').html("");
     })
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.8/lib/draggable.js"></script>
+<script>
+    const draggable = new Draggable.default(document.querySelectorAll('.draggable'), {
+        draggable: 'li'
+    });
+
+    {{!-- const groceryDraggable = new Draggable.default(document.querySelectorAll('.sticky'), {
+        draggable: '.groceryItem'
+    }); --}}
+
+    let addItem = false;
+    let removeItem = false;
+
+    draggable.on('drag:over:container', (e) => {
+        if (e.overContainer.id === 'sticky' && e.sourceContainer.id !== 'sticky') {
+            addItem = true;
+        }
+    })
+
+    draggable.on('drag:stop', (e) => {
+        if (addItem) {
+            $('#sticky').append('<li class="groceryItem">' + e.source.innerText + '</li>');
+            addItem = false;
+        }
+        if (removeItem) {
+            let del = e.data.source;
+            del.parentNode.removeChild(del);
+            removeItem = false;
+        }
+    })
+
+    draggable.on('drag:out:container', (e) => {
+        if (e.data.originalSource.className === "groceryItem draggable--original") {
+            removeItem = true;
+        }
+    });
 </script>
 
 </html>

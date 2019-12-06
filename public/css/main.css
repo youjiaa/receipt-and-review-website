@@ -1,11 +1,14 @@
 /* Please add your own! */
+
 .input-field {
     padding: 10px 0;
 }
+
 article {
     padding: 20px;
     border: 5px solid turquoise;
 }
+
 label {
     display: block;
     padding-bottom: 10px;
@@ -27,13 +30,14 @@ textarea {
 }
 
 button {
-	border: none;
-	padding: 10px;
-	background-color: teal;
-	color: white;
-	font-size: 20px;
-	font-weight: bold;
+    border: none;
+    padding: 10px;
+    background-color: teal;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
 }
+
 .nav {
     padding: 15px;
     background-color: #008080;
@@ -41,7 +45,7 @@ button {
     color: white;
 }
 
-.nav:hover{
+.nav:hover {
     background-color: rgba(0, 128, 128, 0.5);
 }
 
@@ -51,5 +55,17 @@ img {
 }
 
 #notification {
-    padding:10px;
+    padding: 10px;
+}
+
+ul#sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 20%;
+    left: 100%;
+    width: 20%;
+    padding: 10px;
+    padding-left: 20px;
+    background-color: #cae8ca;
+    border: 2px solid #4CAF50;
 }
