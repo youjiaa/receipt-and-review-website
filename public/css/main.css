@@ -62,7 +62,7 @@ ul#sticky {
     position: -webkit-sticky;
     position: sticky;
     top: 20%;
-    left: 100%;
+    float:right;
     width: 20%;
     padding: 10px;
     padding-left: 20px;

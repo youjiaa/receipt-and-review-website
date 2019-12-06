@@ -11,9 +11,11 @@
         </form>
     </body>
 </article>
+
 <ul id="sticky" class="draggable">
     <label>Grocery List</label>
 </ul>
+
 <div id="hereRecipes">
     {{#each data}}
     <article class="recipeHome">
@@ -107,10 +109,6 @@
     const draggable = new Draggable.default(document.querySelectorAll('.draggable'), {
         draggable: 'li'
     });
-
-    {{!-- const groceryDraggable = new Draggable.default(document.querySelectorAll('.sticky'), {
-        draggable: '.groceryItem'
-    }); --}}
 
     let addItem = false;
     let removeItem = false;
