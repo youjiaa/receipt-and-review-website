@@ -132,6 +132,7 @@ app.post('/addReview/:name', function (req, res) {
   var nameOf = req.params.name;
   var body = req.body;
   //A review consists of a two element array: arr[0] is the rating, arr[1] is the review content
+  /*
   var review = []
   review.push(body.reviewName);
   review.push(body.rating);
@@ -140,11 +141,15 @@ app.post('/addReview/:name', function (req, res) {
   dataUtil.saveData(_DATA);
   recipeOperations.updateScore(_DATA, nameOf);
   dataUtil.saveData(_DATA);
+*/
+  let review = new Review({
 
-  review.save(function (err) {
-    if (err) throw err;
-    res.send('your review was successfully added!');
   })
+
+  Recipe.find({}, function (allrecipes) {
+    reviewOperations.addReview(allrecipes, nameOf, review);
+  })
+
 
   res.redirect("/");
 })
@@ -322,7 +327,7 @@ app.get('/addReview/:nameOfRecip', function (req, res) {
   })
 })
 
-app.get('/removeRecipe/:name', function(req, res) {
+app.get('/removeRecipe/:name', function (req, res) {
   var nameIn = req.params.name;
   if (!nameIn) {
     return res.status(400).send('Missing query parameter: recipe name')
@@ -338,11 +343,11 @@ app.get('/removeRecipe/:name', function(req, res) {
     .catch(err => {
       res.status(500).json(err)
     })
-    res.redirect('back');
+  res.redirect('back');
 })
 
 // TODO
-app.get('/removeReview/:recipe/:reviewname', function(req, res) {
+app.get('/removeReview/:recipe/:reviewname', function (req, res) {
   // do something to delete review
 })
 
@@ -353,7 +358,7 @@ app.get('/reviews/:name', function (req, res) {
   var reviews = recipeOperations.getReviews(recip);
   res.render('reviews', {
     data: reviews,
-    nameRecip: name 
+    nameRecip: name
   })
 })
 

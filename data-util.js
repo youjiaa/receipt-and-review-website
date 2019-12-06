@@ -18,6 +18,7 @@ function saveData(data) {
 
 function getRandom(data) {
     var random = [];
+    console.log(data);
     if (data.length > 0)
         random.push(data[Math.floor(Math.random() * data.length)]);
     return random;
@@ -32,8 +33,12 @@ function getRecentlyAdded(data) {
 
 function getPopular(data) {
     var recent = [];
-    if (data.reviews.length > 2)
+
+    var i = 0;
+    while (data[i].reviews.length > 2) {
         recent.push(data[data.length - 1]);
+        i++;
+    }
     return recent;
 }
 
