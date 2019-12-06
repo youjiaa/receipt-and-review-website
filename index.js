@@ -126,26 +126,13 @@ app.post('/addRecipe', function (req, res) {
   })
   res.redirect("/");
 })
-
-// TODO: Add review currently posts to data.json, revise so it posts to MongoDB
 app.post('/addReview/:name', function (req, res) {
   var nameOf = req.params.name;
   var body = req.body;
-  //A review consists of a two element array: arr[0] is the review name, arr[1] is the rating, arr[2] is the review content
-  
   var reviewInf = []
   reviewInf.push(body.reviewName);
   reviewInf.push(body.rating);
   reviewInf.push(body.reviewContent);
-  /*
-  reviewOperations.addReview(_DATA, nameOf, review);
-  dataUtil.saveData(_DATA);
-  recipeOperations.updateScore(_DATA, nameOf);
-  dataUtil.saveData(_DATA);
-*/
-  //let review = new Review({
-
-  //})
   let review = new Review({
     name: reviewInf[0],
     reviewbody: reviewInf[2],
@@ -157,9 +144,8 @@ app.post('/addReview/:name', function (req, res) {
   })
   Recipe.find({}, function (err, allrecipes) {
     reviewOperations.addReview(allrecipes, nameOf, review);
+    recipeOperations.updateScore(allrecipes, nameOf);
   })
-
-
   res.redirect("/");
 })
 
@@ -243,17 +229,6 @@ app.delete('/removeReview', function (req, res) {
       res.status(500).json(err)
     })
 })
-
-// Note by Theo:
-// These are the endpoints that I used to get all of the different listings
-// Use these as a baseline to get the data needed for the recipe project
-
-// Refer to my data-util.js to get some more information on how I went about
-// Filtering the data json object to get the info I needed.
-
-// .get() functionality should be here, but the information should be encapsulated
-// and obtained in the recipe.js and review.js files
-
 //post in html form 
 
 app.get('/', function (req, res) {
@@ -362,7 +337,6 @@ app.get('/removeReview/:recipe/:reviewname', function (req, res) {
   // do something to delete review
 })
 
-// TODO: Edit to access MongoDB
 app.get('/reviews/:name', function (req, res) {
   var name = req.params.name;
   var recip 

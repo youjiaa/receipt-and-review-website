@@ -4,7 +4,7 @@
 function updateScore(data, name) {
     var someRecipe;     
     for (var i = 0; i < data.length; i++) {
-        if (data[i].recipeName == name)
+        if (data[i].name == name)
             someRecipe = data[i];
     }
 
@@ -16,15 +16,18 @@ function updateScore(data, name) {
 
     someRecipe.rating = val/reviewsArr.length;
     someRecipe.rating = someRecipe.rating.toFixed(1);
+    someRecipe.save(function (err) {
+        if (err) throw err;
+    })
 }
 
 function getReviews(recipe) {
     var fin = []
     for (var i = 0; i < recipe.reviews.length; i++) {
         var dict = {
-            "name" : recipe.reviews[i][0],
-            "rating" : recipe.reviews[i][1],
-            "reviewBody" : recipe.reviews[i][2]
+            "name" : recipe.reviews[i].name,
+            "rating" : recipe.reviews[i].rating,
+            "reviewBody" : recipe.reviews[i].reviewbody
         }
         fin.push(dict);
     }
