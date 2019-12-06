@@ -7,14 +7,14 @@
     <h4>{{this.name}}</h4>
     <h5>Rating: {{this.rating}}</h5>
     <i>{{this.reviewBody}}</i> <br>
-    <a href="/removeReview/{{nameRecip}}/{{this.name}}">Delete this Review</a> {{!currently a broken link: fix}}
+    <a href="/removeReview/{{../nameRecip}}/{{this.name}}">Delete this Review</a> {{!currently a broken link: fix}}
 </article>
 
 {{else}}
 
 <article>
     <h3>No reviews have been added yet for this recipe</h3>
-    <a href="/addReview/{{this.nameRecip}}">Be the first to add a review</a>
+    <a href="/addReview/{{nameRecip}}">Be the first to add a review</a>
 </article>
 
 {{/each}}
