@@ -118,8 +118,6 @@ app.post('/addRecipe', function (req, res) {
     timePosted: body.time,
     reviews: []
   })
-  // _DATA.push(req.body);
-  // dataUtil.saveData(_DATA);
   rec.save(function (err) {
     if (err) throw err;
     io.emit('new recipe', rec);
@@ -156,7 +154,12 @@ app.get('/api/random', function (req, res) {
     res.json(review);
   });
 })
-
+app.get('/api/allRecipes', function (req, res) {
+  Recipe.find({}, function (err, songs) {
+    if (err) throw err;
+    res.json(songs);
+  });
+})
 app.get('/api/highestRated', function (req, res) {
   Recipe.find({}, function (err, review) {
     var ans = dataUtil.getHighestRated(review)
@@ -189,7 +192,7 @@ app.get('/api/holiday', function (req, res) {
 })
 
 app.get('/api/quick', function (req, res) {
-  Review.find({ quick: true }, function (err, review) {
+  Recipe.find({ quick: true }, function (err, review) {
     if (err) throw err;
     res.json(review);
   });
@@ -213,21 +216,16 @@ app.delete('/removeRecipe/:name', (req, res) => {
     })
 })
 
-app.delete('/removeReview', function (req, res) {
-  if (!req.query.name) {
-    return res.status(400).send('Missing query parameter: recipe name')
-  }
-
-  Review.findOneAndRemove({
-    name: req.query.name
+app.delete('/removeReview/:recipname/:reviewname', function (req, res) {
+  // do something to delete review
+  var revNm = req.params.reviewname;
+  var recipname = req.params.recipname;
+  var recip;
+  Recipe.find({}, function (err, recipes) {
+    recip = recipeOperations.getRecipeByName(recipes, recipname);
+    reviewOperations.deleteReviewByName(recip, revNm);
   })
-    .then(doc => {
-      io.emit("deleted review", req.query.name);
-      res.json(doc);
-    })
-    .catch(err => {
-      res.status(500).json(err)
-    })
+  res.redirect('/')
 })
 //post in html form 
 
@@ -312,6 +310,14 @@ app.get('/addReview/:nameOfRecip', function (req, res) {
     nameOfRecip: name
   })
 })
+app.get('/api/reviews/:nameOfRecip', function (req, res) {
+  var name = req.params.nameOfRecip;
+  Recipe.find({}, function (err, recipes) {
+    recip = recipeOperations.getRecipeByName(recipes, name);
+    var reviews = recipeOperations.getReviews(recip);
+    res.json(reviews)
+  });
+})
 
 app.get('/removeRecipe/:name', function (req, res) {
   var nameIn = req.params.name;
@@ -332,9 +338,7 @@ app.get('/removeRecipe/:name', function (req, res) {
   res.redirect('back');
 })
 
-// TODO
 app.get('/removeReview/:recipname/:reviewname', function (req, res) {
-  // do something to delete review
   var revNm = req.params.reviewname;
   var recipname = req.params.recipname;
   var recip;
@@ -359,8 +363,6 @@ app.get('/reviews/:name', function (req, res) {
       nameRecip: name
     })
   });
-  
-
 })
 
 app.get('/description', function (req, res) {

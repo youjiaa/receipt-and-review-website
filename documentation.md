@@ -32,7 +32,7 @@ Data point fields for a recipe:
 
 Schema: 
 ```javascript
-{"name":"Butterscotch Cookies","ingredients":["Sugar"," Caramel"," 2 Eggs"," Three cups flour"],"prepTime":"23","cookTime":"45","directions":["Mix sugar and caramel together"," Beat in Eggs"," Add flour"," Bake for 35 minutes in 450 degree oven"],"timePosted":"November 30th 2019, 8:08 pm","holiday":true,"quick":false,"reviews":[["4","So Easy to make!"],["5","Great!"],["4","Awesome!"],["5","Yum"],["2","Meh"]],"rating":"4.0"}
+{"name":"Butterscotch Cookies","ingredients":["Sugar"," Caramel"," 2 Eggs"," Three cups flour"],"prepTime":"23","cookTime":"45","directions":["Mix sugar and caramel together"," Beat in Eggs"," Add flour"," Bake for 35 minutes in 450 degree oven"],"timePosted":"November 30th 2019, 8:08 pm","holiday":true,"quick":false,"reviews":[{"name":"Great Recipe","rating":"4","reviewbody":"So Easy to make!"}],"rating":"4.0"}
 ```
 
 Datapoint fields for reviews:
@@ -54,9 +54,9 @@ Schema:
 ```
 ### 2. Add New Data
 
-HTML form route: `/addrecipe` and `/addreview/:recipeName`
+HTML form route: `/addRecipe` and `/addReview/:recipeName`
 
-POST endpoint route: `/api/addrecipe` and `/addreview/:recipeName`
+POST endpoint route: `/addRecipe` and `/addReview/:recipeName`
 
 Example Node.js POST request to endpoint (adding a recipe): 
 ```javascript
@@ -152,8 +152,8 @@ Navigation Filters
 
 ### 10. NPM Packages
   We used the following new npm packages
-  1. draggable.js
-  2. less.js
+  1. draggable.js - Used to create a shopping list environment as the user sees a desired recipe
+  2. less.js - Used to generate the CSS page
 
 ### 11. User Interface
   1. The user interface has been updated to improve the user experience
