@@ -30,9 +30,9 @@ function getReviews(recipe) {
     }
     return fin;
 }
-function getRecipeByName(data, name) {
+function getRecipeByName(data, nameIn) {
     for (var i = 0; i < data.length; i++) {
-        if (data[i].recipeName == name)
+        if (data[i].name == nameIn)
             return data[i];
     }
 }

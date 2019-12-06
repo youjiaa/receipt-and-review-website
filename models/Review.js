@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise
 
 var reviewSchema = new mongoose.Schema({
-    title: {
+    name: {
         type: String,
         required: true
     },
-    review: {
+    reviewbody: {
         type: String,
         required: true
     },

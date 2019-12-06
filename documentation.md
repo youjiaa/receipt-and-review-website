@@ -36,7 +36,7 @@ Schema:
 ```
 
 Datapoint fields for reviews:
-- `name`: Name of teview `Type: String`
+- `name`: Name of review `Type: String`
 - `rating`: Numerical evaluation of the review `Type: Number`
 - `reviewBody` : text body of review `Type: String`
 
@@ -44,7 +44,14 @@ Schema:
 ```javascript
 {"name":"Butterscotch Cookies Review","rating":"4.0", "reviewBody":"Great recipe! Easy to make."}
 ```
-
+Datapoint fields for recipes
+- `name`: Type of ingredient `type: String`
+- `amount`: numerical measurement `type: Number`
+- `unit:`: Units of the numerical measurement `type: String, (empty string allowed)`
+Schema: 
+```javascript
+{"name":"Caramel","amount":"4.0","unit":"Cups"}
+```
 ### 2. Add New Data
 
 HTML form route: `/addrecipe` and `/addreview/:recipeName`

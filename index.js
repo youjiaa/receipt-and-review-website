@@ -131,22 +131,31 @@ app.post('/addRecipe', function (req, res) {
 app.post('/addReview/:name', function (req, res) {
   var nameOf = req.params.name;
   var body = req.body;
-  //A review consists of a two element array: arr[0] is the rating, arr[1] is the review content
+  //A review consists of a two element array: arr[0] is the review name, arr[1] is the rating, arr[2] is the review content
+  
+  var reviewInf = []
+  reviewInf.push(body.reviewName);
+  reviewInf.push(body.rating);
+  reviewInf.push(body.reviewContent);
   /*
-  var review = []
-  review.push(body.reviewName);
-  review.push(body.rating);
-  review.push(body.reviewContent);
   reviewOperations.addReview(_DATA, nameOf, review);
   dataUtil.saveData(_DATA);
   recipeOperations.updateScore(_DATA, nameOf);
   dataUtil.saveData(_DATA);
 */
+  //let review = new Review({
+
+  //})
   let review = new Review({
-
+    name: reviewInf[0],
+    reviewbody: reviewInf[2],
+    rating: reviewInf[1]
   })
-
-  Recipe.find({}, function (allrecipes) {
+  review.save(function (err) {
+    if (err) throw err;
+    io.emit('new review', review);
+  })
+  Recipe.find({}, function (err, allrecipes) {
     reviewOperations.addReview(allrecipes, nameOf, review);
   })
 
@@ -155,7 +164,7 @@ app.post('/addReview/:name', function (req, res) {
 })
 
 app.get('/api/random', function (req, res) {
-  Review.find({}, function (err, songs) {
+  Recipe.find({}, function (err, songs) {
     var review = dataUtil.getRandom(songs)
     if (err) throw err;
     res.json(review);
@@ -163,14 +172,15 @@ app.get('/api/random', function (req, res) {
 })
 
 app.get('/api/highestRated', function (req, res) {
-  Review.find({ rating: 5 }, function (err, review) {
+  Recipe.find({}, function (err, review) {
+    var ans = dataUtil.getHighestRated(review)
     if (err) throw err;
-    res.json(review);
+    res.json(ans);
   });
 })
 
 app.get('/api/popular', function (req, res) {
-  Review.find({}, function (err, songs) {
+  Recipe.find({}, function (err, songs) {
     var review = dataUtil.getPopular(songs)
     if (err) throw err;
     res.json(review);
@@ -178,7 +188,7 @@ app.get('/api/popular', function (req, res) {
 })
 
 app.get('/api/newest', function (req, res) {
-  Review.find({}, function (err, songs) {
+  Recipe.find({}, function (err, songs) {
     var review = dataUtil.getRecentlyAdded(songs)
     if (err) throw err;
     res.json(review);
@@ -186,7 +196,7 @@ app.get('/api/newest', function (req, res) {
 })
 
 app.get('/api/holiday', function (req, res) {
-  Review.find({ holiday: true }, function (err, review) {
+  Recipe.find({ holiday: true }, function (err, review) {
     if (err) throw err;
     res.json(review);
   });
@@ -256,19 +266,18 @@ app.get('/', function (req, res) {
   });
 });
 
-//  TODO: All of these currently pull from data.json, update following
-// the method above to work with MongoDB
 app.get('/highestRated', function (req, res) {
-  Recipe.find({ rating: 5 }, function (err, con) {
-    return res.render('recipes', { data: con })
+  Recipe.find({}, function (err, recipes) {
+    return res.render('recipes', { 
+      data: dataUtil.getHighestRated(recipes),
+    header: "Highest Rated Recipe" })
   })
 })
 
-// TODO: Edit to access MongoDB
 app.get('/popular', function (req, res) {
   Recipe.find({}, function (err, recipes) {
     return res.render('recipes', {
-      header: "Random Recipe",
+      header: "Popular Recipe",
       data: dataUtil.getPopular(recipes)
     });
   });
@@ -285,7 +294,9 @@ app.get('/holiday', function (req, res) {
 
 app.get('/quick', function (req, res) {
   Recipe.find({ quick: true }, function (err, con) {
-    return res.render('recipes', { data: con });
+    return res.render('recipes', { 
+      data: con,
+      header: "Quick & Easy Recipes" });
   });
 })
 
@@ -354,12 +365,17 @@ app.get('/removeReview/:recipe/:reviewname', function (req, res) {
 // TODO: Edit to access MongoDB
 app.get('/reviews/:name', function (req, res) {
   var name = req.params.name;
-  var recip = recipeOperations.getRecipeByName(_DATA, name);
-  var reviews = recipeOperations.getReviews(recip);
-  res.render('reviews', {
-    data: reviews,
-    nameRecip: name
-  })
+  var recip 
+  Recipe.find({}, function (err, recipes) {
+    recip = recipeOperations.getRecipeByName(recipes, name);
+    var reviews = recipeOperations.getReviews(recip);
+    res.render('reviews', {
+      data: reviews,
+      nameRecip: name
+    })
+  });
+  
+
 })
 
 app.get('/description', function (req, res) {

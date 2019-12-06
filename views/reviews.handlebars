@@ -7,7 +7,7 @@
     <h4>{{this.name}}</h4>
     <h5>Rating: {{this.rating}}</h5>
     <i>{{this.reviewBody}}</i> <br>
-    <a href="/removeReview/{{{this.nameRecip}}}/{{this.name}}">Delete this Review</a> {{!currently a broken link: fix}}
+    <a href="/removeReview/{{nameRecip}}/{{this.name}}">Delete this Review</a> {{!currently a broken link: fix}}
 </article>
 
 {{else}}
