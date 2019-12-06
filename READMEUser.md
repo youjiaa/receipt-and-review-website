@@ -22,7 +22,7 @@ Route: `description`
 1. Contains a description of the website and the group members
 
 ## How do I delete a recipe or a review?
-Route: `/removeReview` and `/removeRecipe/:recipeName`
+Route: `/removeReview/:recipeName/:reviewName` and `/removeRecipe/:recipeName`
 1. On the webpage under each review, there is a link to delete the review from the database
 2. On any page displaying recipes, there will be a link at the bottom of the recipe to delete the recipe
 
