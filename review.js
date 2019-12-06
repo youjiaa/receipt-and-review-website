@@ -17,9 +17,6 @@ function deleteReviewByName(recip, name) {
         if (reviewsArr[j].name == name)
             recip.reviews.splice(j,j+1);
     }
-    recip.save(function (err) {
-        if (err) throw err;
-    })
 }
 module.exports = {
     addReview: addReview,

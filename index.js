@@ -224,6 +224,7 @@ app.delete('/removeReview/:recipname/:reviewname', function (req, res) {
   Recipe.find({}, function (err, recipes) {
     recip = recipeOperations.getRecipeByName(recipes, recipname);
     reviewOperations.deleteReviewByName(recip, revNm);
+    recipeOperations.updateScore(recipes, recipname);
   })
   res.redirect('/')
 })
@@ -345,6 +346,7 @@ app.get('/removeReview/:recipname/:reviewname', function (req, res) {
   Recipe.find({}, function (err, recipes) {
     recip = recipeOperations.getRecipeByName(recipes, recipname);
     reviewOperations.deleteReviewByName(recip, revNm);
+    recipeOperations.updateScore(recipes, recipname);
   })
 
   
