@@ -39,7 +39,7 @@
 ## 6. NPM Packages
     i. draggable.js (Wilson)
     ii. less.js (Theo) - Done
-## 7. CSS/Appearance (Theo) - Done
+## 7. CSS/Appearance (Theo)
 
 ## 8. Heroku (Theo)
     i. Theo will take care of this once everything's done
