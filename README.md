@@ -20,7 +20,7 @@
     iii. Ingredients
     iv. Cooking Time
     v. Prep Time
-    etc... (Done)
+    etc...
 ## 2. Live Updates (Wilson)
     i. Automatically add recipes to page without refresh
     ii. Notifcations to inform users when a new recipe is added
@@ -33,7 +33,7 @@
     ii. Deleting Endpoints: deleting recipe, deleting a review
     iii. Additional Endpoints: random, highest rated, popular, newest recipe, holiday recipes, quick and easy recipes 
 ## 5. Modules (see week 5- Express.js #1 lecture) (Theo)
-    We'll create two separate modules - Done
+    We'll create two separate modules
     i. recipe.js
     ii. review.js
 ## 6. NPM Packages
@@ -42,6 +42,6 @@
 ## 7. CSS/Appearance (Theo)
 
 ## 8. Heroku (Theo)
-    i. Theo will take care of this once everything's done
+    i. See umd-recipes.herokuapp.com
 ## 9. README (Theo)
-    i. See READMEUser.md - Done
+    i. See READMEUser.md
