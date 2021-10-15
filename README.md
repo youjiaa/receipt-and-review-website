@@ -1,4 +1,4 @@
-# cmsc389kfinal
+# receipt and review website
 
 ## What data will a recipe have?
     i. Array of ingredients
